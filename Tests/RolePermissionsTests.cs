@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-public class UnitTest1
+public class RolePermissionsTests
 {
     [Fact]
     public void AdminRolePermissions()
