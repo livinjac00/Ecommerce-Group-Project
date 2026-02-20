@@ -1,0 +1,130 @@
+@page "/product"
+@using BackEnd
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+
+@if (product == null)
+{
+    <PageTitle>
+        Product Not Found
+    </PageTitle>
+    <h1>Error 404</h1>
+    <h5>Product Not Found</h5>
+}
+else
+{
+    <PageTitle>
+        @product.Name
+    </PageTitle>
+
+    <section id="productInfo" class="d-flex w-100">
+        <div class="flex-grow-1">
+            <h1>@product.Name</h1>
+            <h4>$@product.Price</h4>
+            <h6>3 remaining</h6>
+            <p>@product.Description</p>
+        </div>
+        <div style="width: fit-content;">
+            <button class="btn btn-primary" @onclick="addToCart">Add To Cart</button>
+        </div>
+    </section>
+    <section id="rateProduct">
+        <h3>Please rate this product</h3>
+        <div>
+            <i id="star1" class="fs-1 star-icon bi @(@isStar1Filled ? "bi-star-fill" : "bi-star")"
+               @onmouseenter="() => updateRateDisplay(1)" @onmouseleave="resetRating" @onclick="() => rateProduct(1)"></i>
+            <i id="star2" class="fs-1 star-icon bi @(@isStar2Filled ? "bi-star-fill" : "bi-star")"
+               @onmouseenter="() => updateRateDisplay(2)" @onmouseleave="resetRating" @onclick="() => rateProduct(2)"></i>
+            <i id="star3" class="fs-1 star-icon bi @(@isStar3Filled ? "bi-star-fill" : "bi-star")"
+               @onmouseenter="() => updateRateDisplay(3)" @onmouseleave="resetRating" @onclick="() => rateProduct(3)"></i>
+            <i id="star4" class="fs-1 star-icon bi @(@isStar4Filled ? "bi-star-fill" : "bi-star")"
+               @onmouseenter="() => updateRateDisplay(4)" @onmouseleave="resetRating" @onclick="() => rateProduct(4)"></i>
+            <i id="star5" class="fs-1 star-icon bi @(@isStar5Filled ? "bi-star-fill" : "bi-star")"
+               @onmouseenter="() => updateRateDisplay(5)" @onmouseleave="resetRating" @onclick="() => rateProduct(5)"></i>
+        </div>
+    </section>
+
+    <section id="customerReviews" class="mt-4">
+        <h3>Customer Reviews</h3>
+        @foreach (var review in reviews)
+        {
+            <div class="border border-black rounded p-2 mt-2">
+                <h5>@review.UserName</h5>
+                <div>
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        <i class="bi star-icon bi @(i <= review.Rating ? "bi-star-fill" : "bi-star")"></i>
+                    }
+                </div>
+                <p>@review.Comment</p>
+            </div>
+        }
+    </section>
+}
+
+
+
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string productIdString { get; set; }
+
+    public ProductCollection productCollection = new();
+
+    @* Todo: Remove test product and pull products from another location *@
+    Product testProduct = new(Guid.Empty, "Phone", 500m, "A Cellular Device that can be used to call loved ones or play games.");
+
+    Product product = null;
+
+    @* Todo: Remove this temp list and pull from product.Reviews *@
+    List<(string UserName, int Rating, string Comment)> reviews = new List<(string UserName, int Rating, string Comment)>();
+    protected override void OnInitialized()
+    {
+        productCollection.Add(testProduct);
+        Console.WriteLine(testProduct.Id);
+
+        if (!string.IsNullOrWhiteSpace(productIdString))
+        {
+            Guid productId = Guid.Parse(productIdString);
+            product = productCollection.GetById(productId);
+            reviews.Add(("Alice", 4, "Great product!"));
+            reviews.Add(("Bob", 5, "Excellent product!"));
+            reviews.Add(("Charlie", 5, "Best product ever!"));
+        }
+    }
+
+    bool isStar1Filled = false;
+    bool isStar2Filled = false;
+    bool isStar3Filled = false;
+    bool isStar4Filled = false;
+    bool isStar5Filled = false;
+
+    void updateRateDisplay(int numStars)
+    {
+        resetRating();
+        if (numStars >= 1) isStar1Filled = true;
+        if (numStars >= 2) isStar2Filled = true;
+        if (numStars >= 3) isStar3Filled = true;
+        if (numStars >= 4) isStar4Filled = true;
+        if (numStars >= 5) isStar5Filled = true;
+    }
+    void resetRating()
+    {
+        isStar1Filled = false;
+        isStar2Filled = false;
+        isStar3Filled = false;
+        isStar4Filled = false;
+        isStar5Filled = false;
+    }
+
+    void rateProduct(int numStars)
+    {
+        @* Submit rating for product *@
+    }
+
+    void addToCart()
+    {
+        @* Add product to user's shopping cart *@
+    }
+}
