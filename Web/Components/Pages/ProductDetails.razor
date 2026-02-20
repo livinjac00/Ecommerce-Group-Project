@@ -17,20 +17,19 @@ else
         @product.Name
     </PageTitle>
 
-    <section id="productInfo" class="d-flex">
-        <div>
+    <section id="productInfo" class="d-flex w-100">
+        <div class="flex-grow-1">
             <h1>@product.Name</h1>
             <h4>$@product.Price</h4>
             <h6>3 remaining</h6>
             <p>@product.Description</p>
         </div>
-        <div>
+        <div style="width: fit-content;">
             <button class="btn btn-primary" @onclick="addToCart">Add To Cart</button>
-
         </div>
     </section>
     <section id="rateProduct">
-        <h3>Please rate Us!</h3>
+        <h3>Please rate this product</h3>
         <div>
             <i id="star1" class="fs-1 star-icon bi @(@isStar1Filled ? "bi-star-fill" : "bi-star")"
                @onmouseenter="() => updateRateDisplay(1)" @onmouseleave="resetRating" @onclick="() => rateProduct(1)"></i>
@@ -45,11 +44,11 @@ else
         </div>
     </section>
 
-    <section id="customerReviews">
+    <section id="customerReviews" class="mt-4">
         <h3>Customer Reviews</h3>
         @foreach (var review in reviews)
         {
-            <div>
+            <div class="border border-black rounded p-2 mt-2">
                 <h5>@review.UserName</h5>
                 <div>
                     @for (int i = 1; i <= 5; i++)
@@ -72,9 +71,13 @@ else
     public string productIdString { get; set; }
 
     public ProductCollection productCollection = new();
+
+    @* Todo: Remove test product and pull products from another location *@
     Product testProduct = new(Guid.Empty, "Phone", 500m, "A Cellular Device that can be used to call loved ones or play games.");
 
     Product product = null;
+
+    @* Todo: Remove this temp list and pull from product.Reviews *@
     List<(string UserName, int Rating, string Comment)> reviews = new List<(string UserName, int Rating, string Comment)>();
     protected override void OnInitialized()
     {
@@ -86,6 +89,8 @@ else
             Guid productId = Guid.Parse(productIdString);
             product = productCollection.GetById(productId);
             reviews.Add(("Alice", 4, "Great product!"));
+            reviews.Add(("Bob", 5, "Excellent product!"));
+            reviews.Add(("Charlie", 5, "Best product ever!"));
         }
     }
 
