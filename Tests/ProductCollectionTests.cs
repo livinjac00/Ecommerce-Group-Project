@@ -1,11 +1,12 @@
-﻿namespace Tests;
+﻿using BackEnd;
+namespace Tests;
 
 public class UnitTest1
 {
     [Fact]
-    public void ProductCollectiontest()
+    public void ProductCollectionTest()
     {
-        ProductCollectiontest collection= new ProductCollectiontest();
+        ProductCollection collection= new ProductCollection();
         Product product = new Product("Phone", 500m, "Smartphone");
 
         collection.Add(product);
