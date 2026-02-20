@@ -1,0 +1,61 @@
+@page "/product"
+@using BackEnd
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+
+<head>
+    
+</head>
+
+@if (product == null)
+{
+    <PageTitle>
+        Product Not Found
+    </PageTitle>
+    <h1>Error 404</h1>
+    <h5>Product Not Found</h5>
+}
+else
+{
+    <PageTitle>
+        @product.Name
+    </PageTitle>
+
+    <section id="productInfo">
+        <h1>@product.Name</h1>
+        <h4>$@product.Price</h4>
+        <h6>3 remaining</h6>
+
+        <p>@product.Description</p>
+    </section>
+
+    <section id="productRating">
+        <h3>Please rate Us!</h3>
+        <Icon Name="IconName.Alarm" />
+    </section>
+}
+
+
+
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string productIdString { get; set; }
+
+    public ProductCollection productCollection = new();
+    Product testProduct = new(Guid.Empty, "Phone", 500m, "A Cellular Device that can be used to call loved ones or play games.");
+
+    Product product = null;
+    protected override void OnInitialized()
+    {
+        productCollection.Add(testProduct);
+        Console.WriteLine(testProduct.Id);
+
+        if (!string.IsNullOrWhiteSpace(productIdString))
+        {
+            Guid productId = Guid.Parse(productIdString);
+            product = productCollection.GetById(productId);
+        }
+    }
+}

@@ -1,5 +1,6 @@
 @page "/UserSettingsUI"
 @using System.Diagnostics
+@using BackEnd
 @rendermode InteractiveServer
 @inject NavigationManager Nav
 
@@ -30,10 +31,10 @@
 }
 
 <div>
-    User Name: @user.Name
+    User Name: @user.UserName
 </div>
 <div>
-    Password: @user.Password
+    @* Password: @user.Password *@
 </div>
 <div>
     Email: @user.Email
@@ -46,25 +47,25 @@
 @code {
     User user = new User()
     {
-        Id = Guid.NewGuid(),
-        Name = "Johnny Boy",
+        ID = Guid.NewGuid(),
+        UserName = "Johnny Boy",
         Email = "FakeEmail@example.com",
-        Password = "FakePassword",
+        @* Password = "FakePassword", *@
         Address = "Fake Address",
-        ActiveAccount = true
+        @* ActiveAccount = true *@
     };
 
     bool showPopup = false;
 
     void EditUserName()
     {
-        user.Name = "New User Name";
+        user.UserName = "New User Name";
         showPopup = false;
     }
 
     void EditPassword()
     {
-        user.Password = "New Password";
+        @* user.Password = "New Password"; *@
         showPopup = false;
     }
 
@@ -88,7 +89,7 @@
         string input = Console.ReadLine();
         if (input == "Yes" || input == "yes")
         {
-            user.ActiveAccount = false;
+            @* user.ActiveAccount = false; *@
             showPopup = false;
         }
         else

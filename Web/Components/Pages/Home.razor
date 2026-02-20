@@ -9,6 +9,7 @@
 <h1>Welcome Shopper!</h1>
 
 <button @onclick="GoToUserSettingsPage"; style="Position: absolute; left:1400px; top:70px">Profile Settings</button>
+<button @onclick="GoToProductPage"; class="btn btn-outline-primary">Temp Button to Product Details</button>
 
 
 
@@ -18,5 +19,9 @@
     void GoToUserSettingsPage()
     {
         Nav.NavigateTo("/UserSettingsUI");
+    }
+    void GoToProductPage()
+    {
+        Nav.NavigateTo("/product");
     }
 }
