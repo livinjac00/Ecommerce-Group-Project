@@ -2,27 +2,31 @@ namespace BackEnd;
 
 public class User
 {
-    public Guid ID { get; set; }
-    public string Email { get; set; }
-    public string UserName { get; set; }
-    private string Password { get; set; }
-    public string Address { get; set; }
-    public Role AccountRole { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Email { get; set; } = string.Empty;
+    public string Username { get; set; } = string.Empty;
+    public string PasswordHash { get; set; } = string.Empty;
+    public string Address { get; set; } = string.Empty;
+    public Role AccountRole { get; set; } = Role.User;
     public Permissions AccountPermissions { get; set; }
+    
     public User() { }
-    public void Register(string email, string userName, string password, string address, Role accountRole, Permissions accountPermissions)
+    
+    public void Register(string email, string username, string passwordHash, string address, Role accountRole, Permissions accountPermissions)
     {
-        ID = Guid.NewGuid();
+        Id = Guid.NewGuid();
         Email = email;
-        UserName = userName;
-        Password = password;
+        Username = username;
+        PasswordHash = passwordHash;
         Address = address;
         AccountRole = accountRole;
         AccountPermissions = accountPermissions;
     }
+    
     public void Login(string password)
     {
-        if (password == Password)
+        // Simple draft verification
+        if (BCrypt.Net.BCrypt.Verify(password, PasswordHash))
         {
             Console.WriteLine("Login successful.");
         }
@@ -31,6 +35,7 @@ public class User
             Console.WriteLine("Login failed.");
         }
     }
+    
     public void Update()
     {
         //
