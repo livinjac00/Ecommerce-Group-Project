@@ -10,6 +10,8 @@
 
 <button @onclick="GoToUserSettingsPage"; style="Position: absolute; left:1400px; top:70px">Profile Settings</button>
 <button @onclick="GoToShoppingCartPage"; style="Position: absolute; left:1400px; top:70px">Shopping Cart</button>
+<button @onclick="GoToProductPage"; class="btn btn-outline-primary">Temp Button to Product Details</button>
+
 
 
 
@@ -22,5 +24,9 @@
     void GoToShoppingCartPage()
     {
         Nav.NavigateTo("/ShoppingCartUI");
+    }
+    void GoToProductPage()
+    {
+        Nav.NavigateTo("/product");
     }
 }
