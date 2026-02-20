@@ -1,0 +1,76 @@
+@page "/register"
+@inject UserCollection UserCollection
+@inject NavigationManager NavigationManager
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>Register</PageTitle>
+
+<h1>Register</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <EditForm Model="@registrationModel" OnValidSubmit="HandleRegistration" FormName="registrationForm">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <InputText id="username" class="form-control" @bind-Value="registrationModel.Username" />
+                <ValidationMessage For="@(() => registrationModel.Username)" />
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <InputText id="email" type="email" class="form-control" @bind-Value="registrationModel.Email" />
+                <ValidationMessage For="@(() => registrationModel.Email)" />
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <InputText id="password" type="password" class="form-control" @bind-Value="registrationModel.Password" />
+                <ValidationMessage For="@(() => registrationModel.Password)" />
+            </div>
+
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger">@errorMessage</div>
+            }
+
+            <button type="submit" class="btn btn-primary">Register</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private RegistrationModel registrationModel = new();
+    private string? errorMessage;
+
+    private void HandleRegistration()
+    {
+        errorMessage = null;
+
+        if (!UserCollection.IsEmailUnique(registrationModel.Email))
+        {
+            errorMessage = "Email is already in use.";
+            return;
+        }
+
+        UserCollection.RegisterUser(registrationModel.Username, registrationModel.Email, registrationModel.Password);
+        NavigationManager.NavigateTo("/");
+    }
+
+    public class RegistrationModel
+    {
+        [Required]
+        [StringLength(20, MinimumLength = 3)]
+        public string Username { get; set; } = string.Empty;
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
+        public string Password { get; set; } = string.Empty;
+    }
+}
