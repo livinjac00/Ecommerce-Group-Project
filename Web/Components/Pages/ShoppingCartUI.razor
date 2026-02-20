@@ -1,15 +1,15 @@
-﻿@page "/"
-@rendermode InteractiveServer
+@page "/ShoppingCartUI"
+@using BackEnd
 @inject NavigationManager Nav
 
 
 
 <PageTitle>Shopping Home Page</PageTitle>
 
-<h1>Welcome Shopper!</h1>
+<h1>Welcome to your shopping cart</h1>
 
 <button @onclick="GoToUserSettingsPage"; style="Position: absolute; left:1400px; top:70px">Profile Settings</button>
-<button @onclick="GoToShoppingCartPage"; style="Position: absolute; left:1400px; top:70px">Shopping Cart</button>
+
 
 
 
@@ -18,9 +18,5 @@
     void GoToUserSettingsPage()
     {
         Nav.NavigateTo("/UserSettingsUI");
-    }
-    void GoToShoppingCartPage()
-    {
-        Nav.NavigateTo("/ShoppingCartUI");
     }
 }
