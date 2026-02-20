@@ -1,0 +1,99 @@
+@page "/UserSettingsUI"
+@using BackEnd
+@using System.Diagnostics
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+
+<PageTitle>User Settings</PageTitle>
+
+<h1>User Settings</h1>
+
+@*Probably make each settings page unique according to their assigned guid.*@
+@*Should probably make a List of some sort that stores all of our users.*@
+
+<button @onclick="() => showPopup = true" ; style="Position: absolute; left:1400px; top:70px">Options</button>
+
+@if (showPopup)
+{
+    <div style="Position: absolute; left:1350px; top:70px; background-color:white; border: 1px solid black; padding: 10px;">
+        <button @onclick="EditUserName">Edit User Name</button>
+        <br />
+        <button @onclick="EditPassword">Edit Password</button>
+        <br />
+        <button @onclick="EditEmail">Edit Email</button>
+        <br />
+        <button @onclick="EditAddress">Edit Address</button>
+        <br />
+        <button @onclick="DeleteAccount">Delete Account</button>
+        <br />
+        <button @onclick="() => showPopup = false">Close</button>
+    </div>
+}
+
+<div>
+    User Name: @user.Username
+</div>
+<div>
+    @* Password: @user.Password *@
+</div>
+<div>
+    Email: @user.Email
+</div>
+<div>
+    Address: @user.Address
+</div>
+
+
+@code {
+    User user = new User()
+    {
+        Id = Guid.NewGuid(),
+        Username = "Johnny Boy",
+        Email = "FakeEmail@example.com",
+        @* Password = "FakePassword", *@
+        Address = "Fake Address",
+    };
+
+    bool showPopup = false;
+
+    void EditUserName()
+    {
+        user.Username = "New User Name";
+        showPopup = false;
+    }
+
+    void EditPassword()
+    {
+        @* user.Password = "New Password"; *@
+        showPopup = false;
+    }
+
+    void EditEmail()
+    {
+        user.Email = "New Email";
+        showPopup = false;
+    }
+
+    void EditAddress()
+    {
+        user.Address = "New Address";
+        showPopup = false;
+    }
+
+    void DeleteAccount()
+    {
+        Console.WriteLine("Do you really want to delete your account? You can recover it later");
+        Console.Write("Yes or No: ");
+
+        string input = Console.ReadLine();
+        if (input == "Yes" || input == "yes")
+        {
+            @* user.ActiveAccount = false; *@
+            showPopup = false;
+        }
+        else
+        {
+            showPopup = false;
+        }
+    }
+}
