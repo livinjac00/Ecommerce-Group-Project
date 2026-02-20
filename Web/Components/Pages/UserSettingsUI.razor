@@ -11,7 +11,7 @@
 @*Probably make each settings page unique according to their assigned guid.*@
 @*Should probably make a List of some sort that stores all of our users.*@
 
-<button @onclick="() => showPopup = true"; style="Position: absolute; left:1400px; top:70px">Options</button>
+<button @onclick="() => showPopup = true" ; style="Position: absolute; left:1400px; top:70px">Options</button>
 
 @if (showPopup)
 {
@@ -23,7 +23,7 @@
         <button @onclick="EditEmail">Edit Email</button>
         <br />
         <button @onclick="EditAddress">Edit Address</button>
-        <br />  
+        <br />
         <button @onclick="DeleteAccount">Delete Account</button>
         <br />
         <button @onclick="() => showPopup = false">Close</button>
@@ -31,7 +31,7 @@
 }
 
 <div>
-    User Name: @user.UserName
+    User Name: @user.Username
 </div>
 <div>
     @* Password: @user.Password *@
@@ -47,8 +47,8 @@
 @code {
     User user = new User()
     {
-        ID = Guid.NewGuid(),
-        UserName = "Johnny Boy",
+        Id = Guid.NewGuid(),
+        Username = "Johnny Boy",
         Email = "FakeEmail@example.com",
         @* Password = "FakePassword", *@
         Address = "Fake Address",
@@ -58,7 +58,7 @@
 
     void EditUserName()
     {
-        user.UserName = "New User Name";
+        user.Username = "New User Name";
         showPopup = false;
     }
 
