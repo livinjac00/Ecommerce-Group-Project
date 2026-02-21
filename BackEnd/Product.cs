@@ -22,4 +22,12 @@ public class Product
         Price = price;
         Description = description;
     }
+
+    public Product(Guid id, string name, decimal price, string description)
+    {
+        Id = id;
+        Name = name;
+        Price = price;
+        Description = description;
+    }
 }
