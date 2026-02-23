@@ -1,6 +1,7 @@
 @page "/UserSettingsUI"
 @using BackEnd
 @using System.Diagnostics
+@using BackEnd
 @rendermode InteractiveServer
 @inject NavigationManager Nav
 
@@ -52,6 +53,7 @@
         Email = "FakeEmail@example.com",
         @* Password = "FakePassword", *@
         Address = "Fake Address",
+        @* ActiveAccount = true *@
     };
 
     bool showPopup = false;
