@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using BackEnd
 @rendermode InteractiveServer
 @inject NavigationManager Nav
 
@@ -8,15 +9,53 @@
 
 <h1>Welcome Shopper!</h1>
 
-<button @onclick="GoToUserSettingsPage"; style="Position: absolute; left:1400px; top:70px">Profile Settings</button>
-<button @onclick="GoToShoppingCartPage"; style="Position: absolute; left:1400px; top:70px">Shopping Cart</button>
-<button @onclick="GoToProductPage"; class="btn btn-outline-primary">Temp Button to Product Details</button>
+@* <button @onclick="GoToUserSettingsPage" ; style="Position: absolute; left:1400px; top:70px">Profile Settings</button> *@
+@* <button @onclick="GoToShoppingCartPage" ; style="Position: absolute; left:1400px; top:70px">Shopping Cart</button> *@
+@* <button @onclick="GoToProductPage" ; class="btn btn-outline-primary">Temp Button to Product Details</button> *@
 
-
+    <h2>Products:</h2>
+<div class="d-flex flex-wrap">
+    @foreach (var product in productCollection.Products)
+    {
+        <div class="product-card d-flex flex-column align-items-center text-center w-25 m-2 p-2 btn btn-outline-primary" @onclick="() => GoToProductPageWithId(product.Id)">
+            <h3>@product.Name</h3>
+            <p>$@product.Price</p>
+        </div>
+    }
+</div>
 
 
 
 @code {
+    public ProductCollection productCollection = new ProductCollection();
+
+    protected override async Task OnInitializedAsync()
+    {
+        productCollection.Load();
+        @* List<Product> ExampleListOfProducts = new List<Product>() *@
+            @* { *@
+        @* new( "Phone", 500m, "A Cellular Device that can be used to call loved ones or play games."), *@
+        @* new( "Laptop", 1000m, "A Portable Computer that can be used to work or play games."), *@
+        @* new( "Tablet", 300m, "A Portable Device that can be used to browse the internet or play games."), *@
+        @* new( "Smart Watch", 250m, "A Wearable Device that can be used to track fitness or receive notifications."), *@
+        @* new( "Headphones", 150m, "A Device that can be used to listen to music or podcasts."), *@
+        @* new( "Gaming Console", 400m, "A Dedicated Gaming Device with hundreds of games available."), *@
+        @* new( "Monitor", 350m, "A High-Resolution Display perfect for work or gaming."), *@
+        @* new( "Keyboard", 120m, "A Mechanical Keyboard with RGB Lighting for typing or gaming."), *@
+        @* new( "Mouse", 80m, "A Precision Gaming Mouse with customizable buttons."), *@
+        @* new( "Webcam", 100m, "A 4K Webcam ideal for streaming or video calls."), *@
+        @* new( "Microphone", 200m, "A Professional USB Microphone for recording or streaming."), *@
+        @* new( "Speaker", 180m, "A Portable Bluetooth Speaker with excellent sound quality."), *@
+        @* new( "Power Bank", 60m, "A High-Capacity Power Bank to charge your devices on the go."), *@
+        @* new( "USB Hub", 45m, "A Multi-Port USB Hub for connecting multiple devices."), *@
+            @* }; *@
+        @* foreach (var product in ExampleListOfProducts) *@
+        @* { *@
+            @* productCollection.Add(product); *@
+        @* } *@
+        @* productCollection.Save(); *@
+
+    }
     void GoToUserSettingsPage()
     {
         Nav.NavigateTo("/UserSettingsUI");
@@ -25,8 +64,12 @@
     {
         Nav.NavigateTo("/ShoppingCartUI");
     }
-    void GoToProductPage()
+    @* void GoToProductPage() *@
+    @* { *@
+        @* Nav.NavigateTo("/product?productIdString=00000000-0000-0000-0000-000000000000"); *@
+    @* } *@
+    void GoToProductPageWithId(Guid productId)
     {
-        Nav.NavigateTo("/product?productIdString=00000000-0000-0000-0000-000000000000");
+        Nav.NavigateTo($"/product?productIdString={productId}");
     }
 }

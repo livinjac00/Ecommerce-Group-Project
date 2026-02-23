@@ -81,8 +81,9 @@ else
     List<(string UserName, int Rating, string Comment)> reviews = new List<(string UserName, int Rating, string Comment)>();
     protected override void OnInitialized()
     {
-        productCollection.Add(testProduct);
-        Console.WriteLine(testProduct.Id);
+        productCollection.Load();
+        @* productCollection.Add(testProduct); *@
+        @* Console.WriteLine(testProduct.Id); *@
 
         if (!string.IsNullOrWhiteSpace(productIdString))
         {
