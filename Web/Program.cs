@@ -1,10 +1,16 @@
 using Web.Components;
+using Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// Register the UserCollection service
+var userCollection = new UserCollection();
+userCollection.Load();
+builder.Services.AddSingleton(userCollection);
 
 var app = builder.Build();
 

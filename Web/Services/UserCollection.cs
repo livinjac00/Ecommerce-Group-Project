@@ -2,7 +2,7 @@ using System.Text.Json;
 using BCrypt.Net;
 using BackEnd;
 
-namespace NewUserRegistration;
+namespace Web.Services;
 
 public class UserCollection
 {
