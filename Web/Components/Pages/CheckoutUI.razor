@@ -1,0 +1,23 @@
+@page "/CheckoutUI"
+@using BackEnd
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>Checkout</PageTitle>
+
+<h1>Please input your shippind address and payment info</h1>
+
+<form id="checkout-form">
+    <label for="address">Shipping Address</label> <br>
+    <input type="text" id="address"> <br>
+    <label for="payment">Payment info</label> <br>
+    <input type="text" id="payment"> <br>
+</form>
+    <button @onclick="SendtoOrderConfirmedPage";>Submit</button>
+
+@code {
+    void SendtoOrderConfirmedPage()
+    {
+        Nav.NavigateTo("/OrderConfirmed");
+    }
+}
