@@ -12,13 +12,21 @@ var userCollection = new UserCollection();
 userCollection.Load();
 builder.Services.AddSingleton(userCollection);
 
+// Register and initialize the UserStorageInfo service
+var userStorageInfo = new UserStorageInfo();
+userStorageInfo.UserList.AddRange(userCollection.Users);
+// Mock some shopping cart data for prototype visibility
+userStorageInfo.ShoppingCart.Add(new Product("Modern Headphones", 149.99m, "Noise-cancelling over-ear headphones."));
+userStorageInfo.ShoppingCart.Add(new Product("Mechanical Keyboard", 89.50m, "RGB backlit mechanical keyboard."));
+builder.Services.AddSingleton(userStorageInfo);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    // The default HSTS value is 30 days. You may want to change this for production scenarios,
     app.UseHsts();
 }
 app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);

@@ -1,18 +1,42 @@
 @page "/ShoppingCartUI"
 @using BackEnd
+@using Web.Services
 @inject NavigationManager Nav
-
-
+@inject UserStorageInfo UserStorageInfo
 
 <PageTitle>Shopping Home Page</PageTitle>
 
 <h1>Welcome to your shopping cart</h1>
 
-<button @onclick="GoToUserSettingsPage"; style="Position: absolute; left:1400px; top:70px">Profile Settings</button>
+<button @onclick="GoToUserSettingsPage" style="position: absolute; left:1400px; top:70px">Profile Settings</button>
 
-
-
-
+@if (UserStorageInfo.ShoppingCart.Count == 0)
+{
+    <p>Your shopping cart is empty.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in UserStorageInfo.ShoppingCart)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@item.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p><strong>Total: @UserStorageInfo.ShoppingCart.Sum(x => x.Price).ToString("C")</strong></p>
+}
 
 @code {
     void GoToUserSettingsPage()
