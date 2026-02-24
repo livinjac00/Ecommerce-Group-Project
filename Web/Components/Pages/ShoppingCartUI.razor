@@ -10,6 +10,8 @@
 
 <button @onclick="GoToUserSettingsPage"; style="Position: absolute; left:1400px; top:70px">Profile Settings</button>
 
+<button @onclick="GoToCheckoutPage">Go to Checkout</button>
+
 
 
 
@@ -18,5 +20,10 @@
     void GoToUserSettingsPage()
     {
         Nav.NavigateTo("/UserSettingsUI");
+    }
+
+    void GoToCheckoutPage()
+    {
+        Nav.NavigateTo("/CheckoutUI");
     }
 }
