@@ -1,7 +1,10 @@
 @page "/ShoppingCartUI"
 @using BackEnd
 @using Web.Services
+@using Web.Services
 @inject NavigationManager Nav
+@inject UserStorageInfo UserStorageInfo
+@rendermode InteractiveServer
 @inject UserStorageInfo UserStorageInfo
 @rendermode InteractiveServer
 
@@ -11,6 +14,7 @@
 
 <h1>Welcome to your shopping cart</h1>
 
+<button @onclick="GoToUserSettingsPage" style="position: absolute; left:1400px; top:70px">Profile Settings</button>
 <button @onclick="GoToUserSettingsPage" style="position: absolute; left:1400px; top:70px">Profile Settings</button>
 
 @if (UserStorageInfo.ShoppingCart.Count == 0)
