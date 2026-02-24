@@ -2,6 +2,7 @@
 @using BackEnd
 @using Web.Services
 @using System.Diagnostics
+@using BackEnd
 @rendermode InteractiveServer
 @inject NavigationManager Nav
 @inject UserStorageInfo UserStorageInfo
@@ -80,6 +81,7 @@ else
         Username = "Johnny Boy",
         Email = "FakeEmail@example.com",
         Address = "Fake Address",
+        @* ActiveAccount = true *@
     };
 
     bool showPopup = false;

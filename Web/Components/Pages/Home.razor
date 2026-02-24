@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using BackEnd
 @rendermode InteractiveServer
 @inject NavigationManager Nav
 
@@ -8,13 +9,78 @@
 
 <h1>Welcome Shopper!</h1>
 
-<button @onclick="GoToUserSettingsPage"; style="Position: absolute; left:1400px; top:70px">Profile Settings</button>
-<button @onclick="GoToShoppingCartPage"; style="Position: absolute; left:1400px; top:70px">Shopping Cart</button>
+@* <button @onclick="GoToUserSettingsPage" ; style="Position: absolute; left:1400px; top:70px">Profile Settings</button> *@
+@* <button @onclick="GoToShoppingCartPage" ; style="Position: absolute; left:1400px; top:70px">Shopping Cart</button> *@
+@* <button @onclick="GoToProductPage" ; class="btn btn-outline-primary">Temp Button to Product Details</button> *@
 
+<h2>Products:</h2>
+
+<select @bind="selectedCategory" @bind:after="OnCategoryChanged">
+    <option value="All">All</option>
+    @foreach (var category in productCollection.Products.Select(p => p.CategoryName).Where(c =>
+        !string.IsNullOrEmpty(c)).Distinct())
+    {
+        <option value="@category">@category</option>
+    }
+
+</select>
+<select @bind="selectedSort"@bind:after="OnPriceSort">
+    <option value="">Sort by Price</option>
+    <option value="LowToHigh">Low to High</option>
+    <option value="HighToLow">High to Low</option>
+</select>
+<div class="d-flex flex-wrap">
+    @foreach (var product in filteredProducts)
+    {
+        <div class="product-card d-flex flex-column align-items-center text-center w-25 m-2 p-2 btn btn-outline-primary"
+             @onclick="() => GoToProductPageWithId(product.Id)">
+            <h3>@product.Name</h3>
+            <p>$@product.Price</p>
+        </div>
+    }
+</div>
 
 
 
 @code {
+    public ProductCollection productCollection = new ProductCollection();
+    public string selectedCategory = "All";
+    public string selectedSort = "";
+    public List<Product> filteredProducts = new List<Product>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        productCollection.Load();
+        @* var electronics = new Category("Electronics");
+        var audio = new Category("Audio");
+        var gaming = new Category("Gaming");
+        var accessories = new Category("Accessories");
+
+        List<Product> ExampleListOfProducts = new List<Product>()
+        {
+            new( "Phone", 500m, "A Cellular Device that can be used to call loved ones or play games.", electronics.Id, electronics.Name),
+            new( "Laptop", 1000m, "A Portable Computer that can be used to work or play games.", electronics.Id, electronics.Name),
+            new( "Tablet", 300m, "A Portable Device that can be used to browse the internet or play games.", electronics.Id, electronics.Name),
+            new( "Smart Watch", 250m, "A Wearable Device that can be used to track fitness or receive notifications.", accessories.Id, accessories.Name),
+            new( "Headphones", 150m, "A Device that can be used to listen to music or podcasts.", audio.Id, audio.Name),
+            new( "Gaming Console", 400m, "A Dedicated Gaming Device with hundreds of games available.", gaming.Id, gaming.Name),
+            new( "Monitor", 350m, "A High-Resolution Display perfect for work or gaming.", electronics.Id, electronics.Name),
+            new( "Keyboard", 120m, "A Mechanical Keyboard with RGB Lighting for typing or gaming.", accessories.Id, accessories.Name),
+            new( "Mouse", 80m, "A Precision Gaming Mouse with customizable buttons.", accessories.Id, accessories.Name),
+            new( "Webcam", 100m, "A 4K Webcam ideal for streaming or video calls.", accessories.Id, accessories.Name),
+            new( "Microphone", 200m, "A Professional USB Microphone for recording or streaming.", audio.Id, audio.Name),
+            new( "Speaker", 180m, "A Portable Bluetooth Speaker with excellent sound quality.", audio.Id, audio.Name),
+            new( "Power Bank", 60m, "A High-Capacity Power Bank to charge your devices on the go.", accessories.Id, accessories.Name),
+            new( "USB Hub", 45m, "A Multi-Port USB Hub for connecting multiple devices.", accessories.Id, accessories.Name),
+        };
+        foreach (var product in ExampleListOfProducts)
+        {
+            productCollection.Add(product);
+        }
+        productCollection.Save(); *@
+        filteredProducts = productCollection.Products.ToList();
+
+    }
     void GoToUserSettingsPage()
     {
         Nav.NavigateTo("/UserSettingsUI");
@@ -22,5 +88,41 @@
     void GoToShoppingCartPage()
     {
         Nav.NavigateTo("/ShoppingCartUI");
+    }
+    @* void GoToProductPage() *@
+    @* { *@
+    @* Nav.NavigateTo("/product?productIdString=00000000-0000-0000-0000-000000000000"); *@
+    @* } *@
+    void GoToProductPageWithId(Guid productId)
+    {
+        Nav.NavigateTo($"/product?productIdString={productId}");
+    }
+
+    void OnCategoryChanged()
+    {
+        if (selectedCategory == "All")
+        {
+            filteredProducts = productCollection.Products;
+        }
+        else
+        {
+            filteredProducts = productCollection.Products.Where(p => p.CategoryName == selectedCategory).ToList();
+        }
+    }
+
+    void OnPriceSort()
+    {
+        if (selectedSort == "LowToHigh")
+        {
+            filteredProducts = filteredProducts.OrderBy(p => p.Price).ToList();
+        }
+        else if (selectedSort == "HighToLow")
+        {
+            filteredProducts = filteredProducts.OrderByDescending(p => p.Price).ToList();
+        }
+        else
+        {
+            OnCategoryChanged();
+        }
     }
 }
