@@ -9,7 +9,8 @@ public class ProductCollection
     
     public void Save()
     {
-        string json = JsonSerializer.Serialize(Products);
+        var options = new JsonSerializerOptions {WriteIndented = true};
+        string json = JsonSerializer.Serialize(Products, options);
         File.WriteAllText(fileName, json);
     }
     

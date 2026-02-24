@@ -7,7 +7,7 @@ public class UnitTest1
     public void ProductCollectionTest()
     {
         ProductCollection collection= new ProductCollection();
-        Product product = new Product("Phone", 500m, "Smartphone");
+        Product product = new Product("Phone", 500m, "Smartphone", Guid.NewGuid(), "Electronics");
 
         collection.Add(product);
 
