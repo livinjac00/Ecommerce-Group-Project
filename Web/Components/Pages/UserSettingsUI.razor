@@ -1,9 +1,11 @@
 @page "/UserSettingsUI"
 @using BackEnd
+@using Web.Services
 @using System.Diagnostics
 @using BackEnd
 @rendermode InteractiveServer
 @inject NavigationManager Nav
+@inject UserStorageInfo UserStorageInfo
 
 <PageTitle>User Settings</PageTitle>
 
@@ -12,11 +14,11 @@
 @*Probably make each settings page unique according to their assigned guid.*@
 @*Should probably make a List of some sort that stores all of our users.*@
 
-<button @onclick="() => showPopup = true" ; style="Position: absolute; left:1400px; top:70px">Options</button>
+<button @onclick="() => showPopup = true" style="position: absolute; left:1400px; top:70px">Options</button>
 
 @if (showPopup)
 {
-    <div style="Position: absolute; left:1350px; top:70px; background-color:white; border: 1px solid black; padding: 10px;">
+    <div style="position: absolute; left:1350px; top:70px; background-color:white; border: 1px solid black; padding: 10px; z-index: 1000;">
         <button @onclick="EditUserName">Edit User Name</button>
         <br />
         <button @onclick="EditPassword">Edit Password</button>
@@ -31,19 +33,46 @@
     </div>
 }
 
-<div>
-    User Name: @user.Username
-</div>
-<div>
-    @* Password: @user.Password *@
-</div>
-<div>
-    Email: @user.Email
-</div>
-<div>
-    Address: @user.Address
+<div class="mb-4">
+    <div>
+        <strong>User Name:</strong> @user.Username
+    </div>
+    <div>
+        <strong>Email:</strong> @user.Email
+    </div>
+    <div>
+        <strong>Address:</strong> @user.Address
+    </div>
 </div>
 
+<hr />
+
+<h3>All Registered Users (from UserStorageInfo)</h3>
+
+@if (UserStorageInfo.UserList.Count == 0)
+{
+    <p>No users registered in storage info.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var u in UserStorageInfo.UserList)
+            {
+                <tr>
+                    <td>@u.Username</td>
+                    <td>@u.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
     User user = new User()
@@ -51,7 +80,6 @@
         Id = Guid.NewGuid(),
         Username = "Johnny Boy",
         Email = "FakeEmail@example.com",
-        @* Password = "FakePassword", *@
         Address = "Fake Address",
         @* ActiveAccount = true *@
     };
@@ -66,7 +94,6 @@
 
     void EditPassword()
     {
-        @* user.Password = "New Password"; *@
         showPopup = false;
     }
 
@@ -87,15 +114,8 @@
         Console.WriteLine("Do you really want to delete your account? You can recover it later");
         Console.Write("Yes or No: ");
 
-        string input = Console.ReadLine();
-        if (input == "Yes" || input == "yes")
-        {
-            @* user.ActiveAccount = false; *@
-            showPopup = false;
-        }
-        else
-        {
-            showPopup = false;
-        }
+        // This is a console read in a web app, probably just for testing/debugging logic.
+        // It won't work in a browser as expected.
+        showPopup = false;
     }
 }
