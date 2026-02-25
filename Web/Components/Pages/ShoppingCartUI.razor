@@ -1,6 +1,7 @@
 @page "/ShoppingCartUI"
 @using BackEnd
 @using Web.Services
+@using Web.Services
 @inject NavigationManager Nav
 @inject UserStorageInfo UserStorageInfo
 @rendermode InteractiveServer
@@ -41,9 +42,16 @@ else
     <p><strong>Total: @UserStorageInfo.ShoppingCart.Sum(x => x.Price).ToString("C")</strong></p>
 }
 
+<button @onclick="GoToCheckoutPage">Go to Checkout</button>
+
 @code {
     void GoToUserSettingsPage()
     {
         Nav.NavigateTo("/UserSettingsUI");
+    }
+
+    void GoToCheckoutPage()
+    {
+        Nav.NavigateTo("/CheckoutUI");
     }
 }

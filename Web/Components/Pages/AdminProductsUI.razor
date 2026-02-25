@@ -1,0 +1,139 @@
+@page "/AdminProductsUI"
+@using BackEnd
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<PageTitle>Admin - Manage Products</PageTitle>
+
+<h1>Admin Product Management</h1>
+
+@if (!isAdmin)
+{
+    <h3>Access Denied</h3>
+}
+else
+{
+    <button class="btn btn-success mb-3" @onclick="ShowAddForm">Add New Products</button>
+
+    @if (showForm)
+    {
+        <div class="border p-3 mb-4">
+            <h4>@(isEditing ? "Edit Producr" : "AddProduct")</h4>
+
+            <input class="form-control mb-2" placeholder="Name" @bind="editingProduct.Name" />
+            <input class="form-control mb-2" placeholder="Price" @bind="editingProduct.Price" />
+            <input class="form-control mb-2" placeholder="Stock" @bind="editingProduct.Stock" />
+            <input class="form-control mb-2" placeholder="Category Name" @bind="editingProduct.CategoryName" />
+            <input class="form-control mb-2" placeholder="Image URL" @bind="editingProduct.ImageUrl" />
+            <textarea class="form-control mb-2" placeholder="Description" @bind="editingProduct.Description"></textarea>
+
+            <button class="btn btn-primary me-2" @onclick="SaveProduct">Save</button>
+            <button class="btn btn-secondary" @onclick="CancelEdit">Cancel</button>
+        </div>
+    }
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in productCollection.Products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>@product.Stock</td>
+                    <td>@product.CategoryName</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm me-2" @onclick="() => EditProduct(product)">Edit</button>
+                        <button class="btn btn-danger btn-sm" @onclick="() => DeleteProduct(product.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    ProductCollection productCollection = new();
+    Product editingProduct = new();
+    bool showForm = false;
+    bool isEditing = false;
+
+    // TEMP admin simulation
+    bool isAdmin = true;
+
+    protected override void OnInitialized()
+    {
+        productCollection.Load();
+
+        // Replace wit real login later:
+        // isAdmin = currentUser.AccountRole == Role.Admin;
+    }
+
+    void ShowAddForm()
+    {
+        editingProduct = new Product();
+        showForm = true;
+        isEditing = false;
+    }
+
+    void EditProduct(Product product)
+    {
+        editingProduct = new Product
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Price = product.Price,
+            Description = product.Description,
+            CategoryId = product.CategoryId,
+            CategoryName = product.CategoryName,
+            Stock = product.Stock,
+            ImageUrl = product.ImageUrl
+        };
+
+        showForm = true;
+        isEditing = true;
+    }
+
+    void SaveProduct()
+    {
+        if (!isEditing)
+        {
+            productCollection.Add(editingProduct);
+        }
+        else
+        {
+            var exisiting = productCollection.GetById(editingProduct.Id);
+            if (exisiting != null)
+            {
+                exisiting.Name = editingProduct.Name;
+                exisiting.Price = editingProduct.Price;
+                exisiting.Description = editingProduct.Description;
+                exisiting.CategoryName = editingProduct.CategoryName;
+                exisiting.Stock = editingProduct.Stock;
+                exisiting.ImageUrl = editingProduct.ImageUrl;
+            }
+        }
+
+        productCollection.Save();
+        showForm = false;
+    }
+
+    void DeleteProduct(Guid id)
+    {
+        productCollection.Remove(id);
+        productCollection.Save();
+    }
+
+    void CancelEdit()
+    {
+        showForm = false;
+    }
+} 

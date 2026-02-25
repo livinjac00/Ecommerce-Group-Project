@@ -8,6 +8,8 @@ public class Product
     public string Description {get; set;}
     public Guid CategoryId {get; set;}
     public string CategoryName {get; set;}
+    public int Stock {get; set;}
+    public string  ImageUrl {get; set;}
     
     public Product()
     {
@@ -17,9 +19,11 @@ public class Product
         Price = 0;
         CategoryId = Guid.Empty;
         CategoryName = "";
+        Stock = 0;
+        ImageUrl = "";
     }
     
-    public Product(string name, decimal price, string description, Guid categoryId, string categoryName)
+    public Product(string name, decimal price, string description, Guid categoryId, string categoryName, int stock, string imageUrl)
     {
         Id = Guid.NewGuid();
         Name = name;
@@ -27,6 +31,8 @@ public class Product
         Description = description;
         CategoryId = categoryId;
         CategoryName = categoryName;
+        Stock = stock;
+        ImageUrl = imageUrl;
     }
 
     public Product(Guid id, string name, decimal price, string description)
