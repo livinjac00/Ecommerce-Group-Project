@@ -11,7 +11,13 @@ public class User
     public Permissions AccountPermissions { get; set; }
     
     public User() { }
+
+    private Dictionary<Guid, uint> cartItems = new Dictionary<Guid, uint>();
     
+    public Dictionary<Guid, uint> GetShoppingCart()
+    {
+        return cartItems;
+    }
     public void Register(string email, string username, string passwordHash, string address, Role accountRole, Permissions accountPermissions)
     {
         Id = Guid.NewGuid();
@@ -40,4 +46,5 @@ public class User
     {
         //
     }
+
 }

@@ -1,4 +1,4 @@
-@page "/ShoppingCartUI"
+@page "/ShoppingCartUI/{userID}"
 @using BackEnd
 @using Web.Services
 @using Web.Services
@@ -6,7 +6,7 @@
 @inject UserStorageInfo UserStorageInfo
 @rendermode InteractiveServer
 @inject UserStorageInfo UserStorageInfo
-@rendermode InteractiveServer
+@* @rendermode InteractiveServer *@
 
 
 
@@ -16,37 +16,60 @@
 
 <button @onclick="GoToUserSettingsPage" style="position: absolute; left:1400px; top:70px">Profile Settings</button>
 
-@if (UserStorageInfo.ShoppingCart.Count == 0)
+@if (currentUser == null)
 {
-    <p>Your shopping cart is empty.</p>
+    <p>please login</p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in UserStorageInfo.ShoppingCart)
-            {
+    @if (UserStorageInfo.ShoppingCart.Count == 0)
+    {
+        <p>Your shopping cart is empty.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.Name</td>
-                    <td>@item.Price.ToString("C")</td>
-                    <td>@item.Description</td>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <p><strong>Total: @UserStorageInfo.ShoppingCart.Sum(x => x.Price).ToString("C")</strong></p>
+            </thead>
+            <tbody>
+                @foreach (var item in UserStorageInfo.ShoppingCart)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Price.ToString("C")</td>
+                        <td>@item.Description</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <p><strong>Total: @UserStorageInfo.ShoppingCart.Sum(x => x.Price).ToString("C")</strong></p>
+    }
 }
 
 <button @onclick="GoToCheckoutPage">Go to Checkout</button>
 
 @code {
+
+    [Parameter]
+    public string userID { get; set; }
+    User currentUser;
+    override protected void OnParametersSet()
+    {
+        UserCollection collection = new();
+        try
+        {
+            currentUser = collection.GetByID(userID);
+        }
+        catch
+        {
+            currentUser = null;
+        }
+    }
     void GoToUserSettingsPage()
     {
         Nav.NavigateTo("/UserSettingsUI");

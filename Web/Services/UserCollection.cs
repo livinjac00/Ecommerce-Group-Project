@@ -45,4 +45,10 @@ public class UserCollection
         Users.Add(newUser);
         Save();
     }
+
+    public User GetByID(string ID)
+    {
+        Guid guid = Guid.Parse(ID);
+        return Users.FirstOrDefault(u => u.Id == guid);
+    }
 }
