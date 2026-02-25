@@ -4,18 +4,23 @@ using BackEnd;
 
 namespace Web.Services;
 
-public class UserCollection
+public static class UserCollection
 {
-    public List<BackEnd.User> Users { get; set; } = new();
-    private string fileName = "users.json";
+    public static List<User> Users { get; set; } = new();
+    private static string fileName = "users.json";
 
-    public void Save()
+    static UserCollection()
+    {
+        Load();
+    }
+
+    public static void Save()
     {
         string json = JsonSerializer.Serialize(Users);
         File.WriteAllText(fileName, json);
     }
 
-    public void Load()
+    public static void Load()
     {
         if (File.Exists(fileName))
         {
@@ -24,12 +29,12 @@ public class UserCollection
         }
     }
 
-    public bool IsEmailUnique(string email)
+    public static bool IsEmailUnique(string email)
     {
         return !Users.Any(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
     }
 
-    public void RegisterUser(string username, string email, string password)
+    public static void RegisterUser(string username, string email, string password)
     {
         var newUser = new BackEnd.User();
         newUser.Username = username;
@@ -46,7 +51,7 @@ public class UserCollection
         Save();
     }
 
-    public User GetByID(string ID)
+    public static User GetByID(string ID)
     {
         Guid guid = Guid.Parse(ID);
         return Users.FirstOrDefault(u => u.Id == guid);

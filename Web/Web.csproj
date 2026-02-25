@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
     <ProjectReference Include="..\BackEnd\BackEnd.csproj" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
   </ItemGroup>

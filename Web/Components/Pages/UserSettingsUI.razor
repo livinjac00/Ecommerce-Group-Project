@@ -6,6 +6,7 @@
 @rendermode InteractiveServer
 @inject NavigationManager Nav
 @inject UserStorageInfo UserStorageInfo
+@inject LocalStorageManager Storage
 
 <PageTitle>User Settings</PageTitle>
 
@@ -18,7 +19,8 @@
 
 @if (showPopup)
 {
-    <div style="position: absolute; left:1350px; top:70px; background-color:white; border: 1px solid black; padding: 10px; z-index: 1000;">
+    <div
+        style="position: absolute; left:1350px; top:70px; background-color:white; border: 1px solid black; padding: 10px; z-index: 1000;">
         <button @onclick="EditUserName">Edit User Name</button>
         <br />
         <button @onclick="EditPassword">Edit Password</button>
@@ -35,13 +37,13 @@
 
 <div class="mb-4">
     <div>
-        <strong>User Name:</strong> @user.Username
+        <strong>User Name:</strong> @user?.Username
     </div>
     <div>
-        <strong>Email:</strong> @user.Email
+        <strong>Email:</strong> @user?.Email
     </div>
     <div>
-        <strong>Address:</strong> @user.Address
+        <strong>Address:</strong> @user?.Address
     </div>
 </div>
 
@@ -75,15 +77,41 @@ else
 }
 
 @code {
-    User user = new User()
-    {
-        Id = Guid.NewGuid(),
-        Username = "Johnny Boy",
-        Email = "FakeEmail@example.com",
-        Address = "Fake Address",
-        @* ActiveAccount = true *@
-    };
+    User user;
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    
+    {
+        if (firstRender)
+        {
+            string userID = await Storage.GetUserId();
+            try
+            {
+                user = UserCollection.GetByID(userID);
+            }
+            catch
+            {
+                user = new User()
+                {
+                    Id = Guid.NewGuid(),
+                    Username = "Johnny Boy",
+                    Email = "FakeEmail@example.com",
+                    Address = "Fake Address",
+                };
+            }
+            if (user == null)
+            {
+                user = new User()
+                {
+                    Id = Guid.NewGuid(),
+                    Username = "Johnny Boy",
+                    Email = "FakeEmail@example.com",
+                    Address = "Fake Address",
+                };
+            }
+            StateHasChanged();
+        }
+    }
     bool showPopup = false;
 
     void EditUserName()

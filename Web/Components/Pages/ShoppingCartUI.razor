@@ -1,9 +1,12 @@
-@page "/ShoppingCartUI/{userID}"
+@page "/ShoppingCartUI"
 @using BackEnd
+@using System.Text.Json
 @using Web.Services
 @using Web.Services
 @inject NavigationManager Nav
 @inject UserStorageInfo UserStorageInfo
+@inject LocalStorageManager Storage
+
 @rendermode InteractiveServer
 @inject UserStorageInfo UserStorageInfo
 @* @rendermode InteractiveServer *@
@@ -22,9 +25,10 @@
 }
 else
 {
-    @if (UserStorageInfo.ShoppingCart.Count == 0)
+    @if (currentUser.GetShoppingCart().Count == 0)
     {
         <p>Your shopping cart is empty.</p>
+        <button class="btn btn-outline-dark" @onclick="GoToHomePage">Go to Home Page</button>
     }
     else
     {
@@ -33,41 +37,51 @@ else
                 <tr>
                     <th>Product Name</th>
                     <th>Price</th>
-                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in UserStorageInfo.ShoppingCart)
+                @foreach (var item in products)
                 {
                     <tr>
-                        <td>@item.Name</td>
-                        <td>@item.Price.ToString("C")</td>
-                        <td>@item.Description</td>
+                        <td>@item.Key.Name</td>
+                        <td>@item.Key.Price.ToString("C")</td>
+                        <td>@item.Value</td>
+                        <td>@((item.Key.Price * item.Value).ToString("C"))</td>
+                        <td><button class="bi bi-trash btn btn-outline-danger" @onclick="() => RemoveItem(item.Key)"></button></td>
                     </tr>
                 }
             </tbody>
         </table>
-        <p><strong>Total: @UserStorageInfo.ShoppingCart.Sum(x => x.Price).ToString("C")</strong></p>
+        <p><strong>Total: @products.Sum(x => x.Key.Price * x.Value).ToString("C")</strong></p>
+        <button @onclick="GoToCheckoutPage">Go to Checkout</button>
     }
 }
 
-<button @onclick="GoToCheckoutPage">Go to Checkout</button>
 
 @code {
 
-    [Parameter]
-    public string userID { get; set; }
+    ProductCollection productCollection = new();
     User currentUser;
-    override protected void OnParametersSet()
+    Dictionary<Product, uint> products = new();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        UserCollection collection = new();
-        try
+        if (firstRender)
         {
-            currentUser = collection.GetByID(userID);
-        }
-        catch
-        {
-            currentUser = null;
+            string userID = await Storage.GetUserId();
+            try
+            {
+                currentUser = UserCollection.GetByID(userID);
+                products = currentUser.GetShoppingCart().ToDictionary(x => productCollection.GetById(x.Key), x => x.Value);
+                @* products = currentUser.GetShoppingCart().Select(x => productCollection.GetById(x.Key)).ToList(); *@
+            }
+            catch
+            {
+                currentUser = null;
+            }
+            StateHasChanged();
         }
     }
     void GoToUserSettingsPage()
@@ -75,8 +89,19 @@ else
         Nav.NavigateTo("/UserSettingsUI");
     }
 
+    void GoToHomePage()
+    {
+        Nav.NavigateTo("/");
+    }
+
     void GoToCheckoutPage()
     {
         Nav.NavigateTo("/CheckoutUI");
+    }
+
+    void RemoveItem(Product product)
+    {
+        currentUser.DeleteCartItem(product.Id);
+        StateHasChanged();
     }
 }
