@@ -48,7 +48,11 @@ else
                     <tr>
                         <td>@item.Key.Name</td>
                         <td>@item.Key.Price.ToString("C")</td>
-                        <td>@item.Value</td>
+                        <td>
+                            <button class ="btn btn-lg btn-outline-secondary" @onclick="() => SubtractQuantity(item.Key)">-</button>
+                            @item.Value
+                            <button class ="btn btn-lg btn-outline-secondary" @onclick="() => AddQuantity(item.Key)">+</button>
+                        </td>
                         <td>@((item.Key.Price * item.Value).ToString("C"))</td>
                         <td><button class="bi bi-trash btn btn-outline-danger" @onclick="() => RemoveItem(item.Key)"></button></td>
                     </tr>
@@ -56,6 +60,9 @@ else
             </tbody>
         </table>
         <p><strong>Total: @products.Sum(x => x.Key.Price * x.Value).ToString("C")</strong></p>
+        var subtotal = products.Sum(x => x.Key.Price * x.Value);
+        <p><strong>Total (with 7% tax): @( (subtotal * 1.07m).ToString("C") )</strong></p>
+
         <button @onclick="GoToCheckoutPage">Go to Checkout</button>
     }
 }
@@ -103,5 +110,15 @@ else
     {
         currentUser.DeleteCartItem(product.Id);
         StateHasChanged();
+    }
+
+    void AddQuantity(Product item)
+    {
+        products[item]++;
+    }
+    void SubtractQuantity(Product item)
+    {
+        if (products[item] > 1) products[item]--;
+        else RemoveItem(item);
     }
 }
