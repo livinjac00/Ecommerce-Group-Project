@@ -24,7 +24,7 @@ else
             <input class="form-control mb-2" placeholder="Price" @bind="editingProduct.Price" />
             <input class="form-control mb-2" placeholder="Stock" @bind="editingProduct.Stock" />
             <input class="form-control mb-2" placeholder="Category Name" @bind="editingProduct.CategoryName" />
-            <input class="form-control mb-2" placeholder="Image URL" @bind="editingProduct.ImageURL" />
+            <input class="form-control mb-2" placeholder="Image URL" @bind="editingProduct.ImageUrl" />
             <textarea class="form-control mb-2" placeholder="Description" @bind="editingProduct.Description"></textarea>
 
             <button class="btn btn-primary me-2" @onclick="SaveProduct">Save</button>
@@ -43,7 +43,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in ProductCollection.Products)
+            @foreach (var product in productCollection.Products)
             {
                 <tr>
                     <td>@product.Name</td>
@@ -126,7 +126,7 @@ else
         showForm = false;
     }
 
-    void DeleteProducr(Guid id)
+    void DeleteProduct(Guid id)
     {
         productCollection.Remove(id);
         productCollection.Save();

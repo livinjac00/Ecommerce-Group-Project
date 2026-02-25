@@ -9,7 +9,8 @@ public class Product
     public Guid CategoryId {get; set;}
     public string CategoryName {get; set;}
     public int Stock {get; set;}
-    public string  ImageUrl {get; set;}
+    public string ImageUrl {get; set;}
+    public bool Displayed {get; set;} = true;
     
     public Product()
     {
@@ -20,7 +21,7 @@ public class Product
         CategoryId = Guid.Empty;
         CategoryName = "";
         Stock = 0;
-        ImagerUrl = "";
+        ImageUrl = "";
     }
     
     public Product(string name, decimal price, string description, Guid categoryId, string categoryName, int stock, string imageUrl)
