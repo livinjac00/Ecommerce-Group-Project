@@ -8,6 +8,7 @@ public class Product
     public string Description {get; set;}
     public Guid CategoryId {get; set;}
     public string CategoryName {get; set;}
+    public List<Review> Reviews { get; set; } = new();
     
     public Product()
     {

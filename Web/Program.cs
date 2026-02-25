@@ -1,5 +1,6 @@
 using Web.Components;
 using Web.Services;
+using BackEnd;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +17,8 @@ builder.Services.AddSingleton(userCollection);
 var userStorageInfo = new UserStorageInfo();
 userStorageInfo.UserList.AddRange(userCollection.Users);
 // Mock some shopping cart data for prototype visibility
-userStorageInfo.ShoppingCart.Add(new Product("Modern Headphones", 149.99m, "Noise-cancelling over-ear headphones."));
-userStorageInfo.ShoppingCart.Add(new Product("Mechanical Keyboard", 89.50m, "RGB backlit mechanical keyboard."));
+userStorageInfo.ShoppingCart.Add(new Product(Guid.NewGuid(), "Modern Headphones", 149.99m, "Noise-cancelling over-ear headphones."));
+userStorageInfo.ShoppingCart.Add(new Product(Guid.NewGuid(), "Mechanical Keyboard", 89.50m, "RGB backlit mechanical keyboard."));
 builder.Services.AddSingleton(userStorageInfo);
 
 var app = builder.Build();

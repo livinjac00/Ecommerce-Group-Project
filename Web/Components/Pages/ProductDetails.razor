@@ -32,33 +32,47 @@ else
     <section id="rateProduct">
         <h3>Please rate this product</h3>
         <div>
-            <i id="star1" class="fs-1 star-icon bi @(@isStar1Filled ? "bi-star-fill" : "bi-star")"
-               @onmouseenter="() => updateRateDisplay(1)" @onmouseleave="resetRating" @onclick="() => rateProduct(1)"></i>
-            <i id="star2" class="fs-1 star-icon bi @(@isStar2Filled ? "bi-star-fill" : "bi-star")"
-               @onmouseenter="() => updateRateDisplay(2)" @onmouseleave="resetRating" @onclick="() => rateProduct(2)"></i>
-            <i id="star3" class="fs-1 star-icon bi @(@isStar3Filled ? "bi-star-fill" : "bi-star")"
-               @onmouseenter="() => updateRateDisplay(3)" @onmouseleave="resetRating" @onclick="() => rateProduct(3)"></i>
-            <i id="star4" class="fs-1 star-icon bi @(@isStar4Filled ? "bi-star-fill" : "bi-star")"
-               @onmouseenter="() => updateRateDisplay(4)" @onmouseleave="resetRating" @onclick="() => rateProduct(4)"></i>
-            <i id="star5" class="fs-1 star-icon bi @(@isStar5Filled ? "bi-star-fill" : "bi-star")"
-               @onmouseenter="() => updateRateDisplay(5)" @onmouseleave="resetRating" @onclick="() => rateProduct(5)"></i>
+            @for (int i = 1; i <= 5; i++)
+            {
+                int starIndex = i;
+                <i id="star@starIndex" class="fs-1 star-icon bi @(currentRating >= starIndex || hoverRating >= starIndex ? "bi-star-fill text-warning" : "bi-star")"
+                   @onmouseenter="() => hoverRating = starIndex" @onmouseleave="() => hoverRating = 0" @onclick="() => currentRating = starIndex" style="cursor: pointer;"></i>
+            }
+        </div>
+        <div class="mt-2">
+            <textarea @bind="newComment" class="form-control" placeholder="Write your review here..."></textarea>
+            <button class="btn btn-success mt-2" @onclick="SubmitReview">Submit Review</button>
+            @if (!string.IsNullOrEmpty(submissionMessage))
+            {
+                <p class="text-success mt-2">@submissionMessage</p>
+            }
         </div>
     </section>
 
     <section id="customerReviews" class="mt-4">
         <h3>Customer Reviews</h3>
-        @foreach (var review in reviews)
+        @if (product.Reviews == null || product.Reviews.Count == 0)
         {
-            <div class="border border-black rounded p-2 mt-2">
-                <h5>@review.UserName</h5>
-                <div>
-                    @for (int i = 1; i <= 5; i++)
-                    {
-                        <i class="bi star-icon bi @(i <= review.Rating ? "bi-star-fill" : "bi-star")"></i>
-                    }
+            <p>No reviews yet. Be the first to review!</p>
+        }
+        else
+        {
+            @foreach (var review in product.Reviews)
+            {
+                <div class="border border-black rounded p-2 mt-2">
+                    <div class="d-flex justify-content-between">
+                        <h5>@review.UserName</h5>
+                        <small class="text-muted">@review.DateCreated.ToShortDateString()</small>
+                    </div>
+                    <div>
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <i class="bi @(i <= review.Rating ? "bi-star-fill text-warning" : "bi-star")"></i>
+                        }
+                    </div>
+                    <p>@review.Comment</p>
                 </div>
-                <p>@review.Comment</p>
-            </div>
+            }
         }
     </section>
 }
@@ -72,57 +86,51 @@ else
     public string productIdString { get; set; }
 
     public ProductCollection productCollection = new();
-
-    @* Todo: Remove test product and pull products from another location *@
-    Product testProduct = new(Guid.Empty, "Phone", 500m, "A Cellular Device that can be used to call loved ones or play games.");
-
     Product product = null;
 
-    @* Todo: Remove this temp list and pull from product.Reviews *@
-    List<(string UserName, int Rating, string Comment)> reviews = new List<(string UserName, int Rating, string Comment)>();
+    int currentRating = 0;
+    int hoverRating = 0;
+    string newComment = "";
+    string submissionMessage = "";
+
     protected override void OnInitialized()
     {
         productCollection.Load();
-        @* productCollection.Add(testProduct); *@
-        @* Console.WriteLine(testProduct.Id); *@
 
-        if (!string.IsNullOrWhiteSpace(productIdString))
+        if (!string.IsNullOrWhiteSpace(productIdString) && Guid.TryParse(productIdString, out Guid productId))
         {
-            Guid productId = Guid.Parse(productIdString);
             product = productCollection.GetById(productId);
-            reviews.Add(("Alice", 4, "Great product!"));
-            reviews.Add(("Bob", 5, "Excellent product!"));
-            reviews.Add(("Charlie", 5, "Best product ever!"));
+            
+            // Mock some reviews if none exist for demonstration
+            if (product != null && (product.Reviews == null || product.Reviews.Count == 0))
+            {
+                product.Reviews = new List<Review>
+                {
+                    new Review(product.Id, "Alice", 4, "Great product!"),
+                    new Review(product.Id, "Bob", 5, "Excellent product!")
+                };
+            }
         }
     }
 
-    bool isStar1Filled = false;
-    bool isStar2Filled = false;
-    bool isStar3Filled = false;
-    bool isStar4Filled = false;
-    bool isStar5Filled = false;
+    void SubmitReview()
+    {
+        if (currentRating == 0)
+        {
+            submissionMessage = "Please select a rating.";
+            return;
+        }
 
-    void updateRateDisplay(int numStars)
-    {
-        resetRating();
-        if (numStars >= 1) isStar1Filled = true;
-        if (numStars >= 2) isStar2Filled = true;
-        if (numStars >= 3) isStar3Filled = true;
-        if (numStars >= 4) isStar4Filled = true;
-        if (numStars >= 5) isStar5Filled = true;
-    }
-    void resetRating()
-    {
-        isStar1Filled = false;
-        isStar2Filled = false;
-        isStar3Filled = false;
-        isStar4Filled = false;
-        isStar5Filled = false;
-    }
+        // Mocking "Only purchased users can review" and "Current User"
+        string currentUser = "GuestUser"; 
+        
+        var review = new Review(product.Id, currentUser, currentRating, newComment);
+        product.Reviews.Add(review);
+        productCollection.Save();
 
-    void rateProduct(int numStars)
-    {
-        @* Submit rating for product *@
+        submissionMessage = "Thank you for your review!";
+        newComment = "";
+        currentRating = 0;
     }
 
     void addToCart()
