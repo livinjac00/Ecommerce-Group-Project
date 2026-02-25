@@ -9,7 +9,8 @@ public class Product
     public Guid CategoryId {get; set;}
     public string CategoryName {get; set;}
     public int Stock {get; set;}
-    public string  ImageUrl {get; set;}
+    public string ImageUrl {get; set;}
+    public bool Displayed {get; set;} = true;
     
     public Product()
     {
