@@ -42,7 +42,7 @@ else
     <p><strong>Total: @UserStorageInfo.ShoppingCart.Sum(x => x.Price).ToString("C")</strong></p>
 }
 
-<button @onclick="GoToCheckoutPage">Go to Checkout</button>
+<button class="btn btn-outline-dark" @onclick="GoToCheckoutPage">Go to Checkout</button>
 
 @code {
     void GoToUserSettingsPage()

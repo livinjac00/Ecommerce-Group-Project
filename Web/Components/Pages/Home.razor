@@ -9,64 +9,34 @@
 
 <h1>Welcome Shopper!</h1>
 
-@* <button @onclick="GoToUserSettingsPage" ; style="Position: absolute; left:1400px; top:70px">Profile Settings</button> *@
-@* <button @onclick="GoToShoppingCartPage" ; style="Position: absolute; left:1400px; top:70px">Shopping Cart</button> *@
-@* <button @onclick="GoToProductPage" ; class="btn btn-outline-primary">Temp Button to Product Details</button> *@
+<h2>Products:</h2>
 
-@if (user.AccountRole != Role.Admin)
-{
-    <h2>Products:</h2>
+<select class="form-select w-25 m-1" @bind="selectedCategory" @bind:after="OnCategoryChanged">
+    <option value="All">All</option>
+    @foreach (var category in productCollection.Products.Select(p => p.CategoryName).Where(c =>
+        !string.IsNullOrEmpty(c)).Distinct())
+    {
+        <option value="@category">@category</option>
+    }
 
-    <select @bind="selectedCategory" @bind:after="OnCategoryChanged">
-        <option value="All">All</option>
-        @foreach (var category in productCollection.Products.Select(p => p.CategoryName).Where(c =>
-                                                                                                            !string.IsNullOrEmpty(c)).Distinct())
-        {
-            <option value="@category">@category</option>
-        }
-
-    </select>
-    <select @bind="selectedSort" @bind:after="OnPriceSort">
-        <option value="">Sort by Price</option>
-        <option value="LowToHigh">Low to High</option>
-        <option value="HighToLow">High to Low</option>
-    </select>
-    <div class="d-flex flex-wrap">
-        @foreach (var product in filteredProducts)
-        {
-            <div class="product-card d-flex flex-column align-items-center text-center w-25 m-2 p-2 btn btn-outline-primary"
-                 @onclick="() => GoToProductPageWithId(product.Id)">
+</select>
+<select class="form-select w-25 m-1" @bind="selectedSort" @bind:after="OnPriceSort">
+    <option value="">Sort by Price</option>
+    <option value="LowToHigh">Low to High</option>
+    <option value="HighToLow">High to Low</option>
+</select>
+<div class="d-flex flex-wrap">
+    @foreach (var product in filteredProducts)
+    {
+        <div class="product-card position-relative d-flex flex-row flex-grow-1 align-items-center text-center w-25 m-2 p-2 btn btn-outline-dark"
+             @onclick="() => GoToProductPageWithId(product.Id)">
+             <div class="d-flex flex-column align-items-center text-center flex-grow-1">
                 <h3>@product.Name</h3>
                 <p>$@product.Price</p>
             </div>
-        }
-    </div>
-}
-else
-{
-    <h2>Products:</h2>
-
-    <select @bind="selectedCategory" @bind:after="OnCategoryChanged">
-        <option value="All">All</option>
-        @foreach (var category in productCollection.Products.Select(p => p.CategoryName).Where(c =>
-        !string.IsNullOrEmpty(c)).Distinct())
-        {
-            <option value="@category">@category</option>
-        }
-
-    </select>
-    <select @bind="selectedSort" @bind:after="OnPriceSort">
-        <option value="">Sort by Price</option>
-        <option value="LowToHigh">Low to High</option>
-        <option value="HighToLow">High to Low</option>
-    </select>
-    <div class="d-flex flex-wrap">
-        @foreach (var product in filteredProducts)
-        {
-            <div class="product-card position-relative d-flex flex-column align-items-center text-center w-25 m-2 p-2 btn btn-outline-primary"
-                 @onclick="() => GoToProductPageWithId(product.Id)">
-                <div class="position-absolute top-0 end-0 m-2" @onclick:stopPropagation="true">
-
+            @if (user.AccountRole == Role.Admin)
+            {
+                <div @onclick:stopPropagation="true">
                     <button class="dots-btn" @onclick="() => ToggleMenu(product.Id)">
                         <i class="bi bi-three-dots-vertical"></i>
                     </button>
@@ -78,13 +48,10 @@ else
                         </div>
                     }
                 </div>
-
-                <h3>@product.Name</h3>
-                <p>$@product.Price</p>
-            </div>
-        }
-    </div>
-}
+            }
+        </div>
+    }
+</div>
 
 
 @code {

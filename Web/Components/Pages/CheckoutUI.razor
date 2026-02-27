@@ -9,11 +9,11 @@
 
 <form id="checkout-form">
     <label for="address">Shipping Address</label> <br>
-    <input type="text" id="address"> <br>
+    <input class="form-control" type="text" id="address"> <br>
     <label for="payment">Payment info</label> <br>
-    <input type="text" id="payment"> <br>
+    <input class="form-control" type="text" id="payment"> <br>
 </form>
-    <button @onclick="SendtoOrderConfirmedPage";>Submit</button>
+    <button class="btn btn-outline-dark" @onclick="SendtoOrderConfirmedPage";>Submit</button>
 
 @code {
     void SendtoOrderConfirmedPage()
