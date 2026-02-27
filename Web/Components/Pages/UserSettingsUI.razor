@@ -15,23 +15,18 @@
 @*Probably make each settings page unique according to their assigned guid.*@
 @*Should probably make a List of some sort that stores all of our users.*@
 
-<button @onclick="() => showPopup = true" style="position: absolute; left:1400px; top:70px">Options</button>
+<button style="width: fit-content; top: 75px; right: 25px" class="position-absolute btn btn-outline-dark" @onclick="() => {showPopup = true;}">Options</button>
 
 @if (showPopup)
 {
-    <div
-        style="position: absolute; left:1350px; top:70px; background-color:white; border: 1px solid black; padding: 10px; z-index: 1000;">
-        <button @onclick="EditUserName">Edit User Name</button>
-        <br />
-        <button @onclick="EditPassword">Edit Password</button>
-        <br />
-        <button @onclick="EditEmail">Edit Email</button>
-        <br />
-        <button @onclick="EditAddress">Edit Address</button>
-        <br />
-        <button @onclick="DeleteAccount">Delete Account</button>
-        <br />
-        <button @onclick="() => showPopup = false">Close</button>
+    <div class="position-absolute border border-dark rounded p-2 bg-light d-flex flex-column" style="right: 20px; top: 70px; z-index: 1000;">
+        <button class="btn btn-outline-dark m-1" @onclick="EditUserName">Edit User Name</button>
+        <button class="btn btn-outline-dark m-1" @onclick="EditPassword">Edit Password</button>
+        <button class="btn btn-outline-dark m-1" @onclick="EditEmail">Edit Email</button>
+        <button class="btn btn-outline-dark m-1" @onclick="EditAddress">Edit Address</button>
+        <button class="btn btn-outline-dark m-1" @onclick="DeleteAccount">Delete Account</button>
+        <hr class="m-2"/>
+        <button class="btn btn-outline-dark m-1" @onclick="() => showPopup = false">Close</button>
     </div>
 }
 
@@ -47,7 +42,7 @@
     </div>
 </div>
 
-<hr />
+<hr/>
 
 <h3>All Registered Users (from UserStorageInfo)</h3>
 

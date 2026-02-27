@@ -9,13 +9,9 @@
 
 <h1>Welcome Shopper!</h1>
 
-@* <button @onclick="GoToUserSettingsPage" ; style="Position: absolute; left:1400px; top:70px">Profile Settings</button> *@
-@* <button @onclick="GoToShoppingCartPage" ; style="Position: absolute; left:1400px; top:70px">Shopping Cart</button> *@
-@* <button @onclick="GoToProductPage" ; class="btn btn-outline-primary">Temp Button to Product Details</button> *@
-
 <h2>Products:</h2>
 
-<select @bind="selectedCategory" @bind:after="OnCategoryChanged">
+<select class="form-select w-25 m-1" @bind="selectedCategory" @bind:after="OnCategoryChanged">
     <option value="All">All</option>
     @foreach (var category in productCollection.Products.Select(p => p.CategoryName).Where(c =>
         !string.IsNullOrEmpty(c)).Distinct())
@@ -24,7 +20,7 @@
     }
 
 </select>
-<select @bind="selectedSort"@bind:after="OnPriceSort">
+<select class="form-select w-25 m-1" @bind="selectedSort" @bind:after="OnPriceSort">
     <option value="">Sort by Price</option>
     <option value="LowToHigh">Low to High</option>
     <option value="HighToLow">High to Low</option>
@@ -32,14 +28,30 @@
 <div class="d-flex flex-wrap">
     @foreach (var product in filteredProducts)
     {
-        <div class="product-card d-flex flex-column align-items-center text-center w-25 m-2 p-2 btn btn-outline-primary"
+        <div class="product-card position-relative d-flex flex-row flex-grow-1 align-items-center text-center w-25 m-2 p-2 btn btn-outline-dark"
              @onclick="() => GoToProductPageWithId(product.Id)">
-            <h3>@product.Name</h3>
-            <p>$@product.Price</p>
+             <div class="d-flex flex-column align-items-center text-center flex-grow-1">
+                <h3>@product.Name</h3>
+                <p>$@product.Price</p>
+            </div>
+            @if (user.AccountRole == Role.Admin)
+            {
+                <div @onclick:stopPropagation="true">
+                    <button class="dots-btn" @onclick="() => ToggleMenu(product.Id)">
+                        <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+
+                    @if (openMenuId == product.Id)
+                    {
+                        <div class="custom-menu">
+                            <button @onclick="() => EditProduct()">Edit</button>
+                        </div>
+                    }
+                </div>
+            }
         </div>
     }
 </div>
-
 
 
 @code {
@@ -47,6 +59,9 @@
     public string selectedCategory = "All";
     public string selectedSort = "";
     public List<Product> filteredProducts = new List<Product>();
+    public User user = new User();
+    bool showModal = false;
+    private Guid? openMenuId = null;
 
     protected override async Task OnInitializedAsync()
     {
@@ -125,4 +140,18 @@
             OnCategoryChanged();
         }
     }
+
+    void EditProduct()
+    {
+        Console.WriteLine("edited product");
+    }
+
+    private void ToggleMenu(Guid productId)
+    {
+        if (openMenuId == productId)
+            openMenuId = null;
+        else
+            openMenuId = productId;
+    }
+
 }

@@ -4,19 +4,19 @@
     "Name": "Phone",
     "Price": 500,
     "Description": "A Cellular Device that can be used to call loved ones or play games.",
-    "CategoryId": "3886028a-4656-4bd6-9eee-9ab41da13243",
+    "CategoryId": "db76ce91-6f1e-43b8-856c-c6e5f7f06951",
     "CategoryName": "Electronics",
-    "Stock": 3,
-    "ImageUrl": ""
+    "Stock": 20,
+    "ImageUrl": "../images/pexels-solliefoto-336948.jpg"
   },
   {
     "Id": "55378757-3904-4e1d-887d-c51f6a2a9f6f",
     "Name": "Laptop",
     "Price": 1000,
     "Description": "A Portable Computer that can be used to work or play games.",
-    "CategoryId": "3886028a-4656-4bd6-9eee-9ab41da13243",
+    "CategoryId": "db76ce91-6f1e-43b8-856c-c6e5f7f06951",
     "CategoryName": "Electronics",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   },
   {
@@ -24,9 +24,9 @@
     "Name": "Tablet",
     "Price": 300,
     "Description": "A Portable Device that can be used to browse the internet or play games.",
-    "CategoryId": "3886028a-4656-4bd6-9eee-9ab41da13243",
+    "CategoryId": "db76ce91-6f1e-43b8-856c-c6e5f7f06951",
     "CategoryName": "Electronics",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   },
   {
@@ -34,9 +34,9 @@
     "Name": "Smart Watch",
     "Price": 250,
     "Description": "A Wearable Device that can be used to track fitness or receive notifications.",
-    "CategoryId": "4a04a733-b8aa-43e2-8b4f-fb011b4fefb4",
+    "CategoryId": "1524ea3d-779c-49c7-90e7-79f84273bc28",
     "CategoryName": "Accessories",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   },
   {
@@ -44,9 +44,9 @@
     "Name": "Headphones",
     "Price": 150,
     "Description": "A Device that can be used to listen to music or podcasts.",
-    "CategoryId": "f95851cd-e434-4443-b6ea-4b6b589c810d",
+    "CategoryId": "2b6041f5-1b94-4387-836b-fca872160072",
     "CategoryName": "Audio",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   },
   {
@@ -54,9 +54,9 @@
     "Name": "Gaming Console",
     "Price": 400,
     "Description": "A Dedicated Gaming Device with hundreds of games available.",
-    "CategoryId": "a90f9b6b-3cec-480f-b01d-c0dd936c995a",
+    "CategoryId": "6e3e2351-e14b-4a69-bb27-21f8a44a94d0",
     "CategoryName": "Gaming",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   },
   {
@@ -64,9 +64,9 @@
     "Name": "Monitor",
     "Price": 350,
     "Description": "A High-Resolution Display perfect for work or gaming.",
-    "CategoryId": "3886028a-4656-4bd6-9eee-9ab41da13243",
+    "CategoryId": "db76ce91-6f1e-43b8-856c-c6e5f7f06951",
     "CategoryName": "Electronics",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   },
   {
@@ -74,9 +74,9 @@
     "Name": "Keyboard",
     "Price": 120,
     "Description": "A Mechanical Keyboard with RGB Lighting for typing or gaming.",
-    "CategoryId": "4a04a733-b8aa-43e2-8b4f-fb011b4fefb4",
+    "CategoryId": "1524ea3d-779c-49c7-90e7-79f84273bc28",
     "CategoryName": "Accessories",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   },
   {
@@ -84,9 +84,9 @@
     "Name": "Mouse",
     "Price": 80,
     "Description": "A Precision Gaming Mouse with customizable buttons.",
-    "CategoryId": "4a04a733-b8aa-43e2-8b4f-fb011b4fefb4",
+    "CategoryId": "1524ea3d-779c-49c7-90e7-79f84273bc28",
     "CategoryName": "Accessories",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   },
   {
@@ -94,9 +94,9 @@
     "Name": "Webcam",
     "Price": 100,
     "Description": "A 4K Webcam ideal for streaming or video calls.",
-    "CategoryId": "4a04a733-b8aa-43e2-8b4f-fb011b4fefb4",
+    "CategoryId": "1524ea3d-779c-49c7-90e7-79f84273bc28",
     "CategoryName": "Accessories",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   },
   {
@@ -104,9 +104,9 @@
     "Name": "Microphone",
     "Price": 200,
     "Description": "A Professional USB Microphone for recording or streaming.",
-    "CategoryId": "f95851cd-e434-4443-b6ea-4b6b589c810d",
+    "CategoryId": "2b6041f5-1b94-4387-836b-fca872160072",
     "CategoryName": "Audio",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   },
   {
@@ -114,9 +114,9 @@
     "Name": "Speaker",
     "Price": 180,
     "Description": "A Portable Bluetooth Speaker with excellent sound quality.",
-    "CategoryId": "f95851cd-e434-4443-b6ea-4b6b589c810d",
+    "CategoryId": "2b6041f5-1b94-4387-836b-fca872160072",
     "CategoryName": "Audio",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   },
   {
@@ -124,9 +124,9 @@
     "Name": "Power Bank",
     "Price": 60,
     "Description": "A High-Capacity Power Bank to charge your devices on the go.",
-    "CategoryId": "4a04a733-b8aa-43e2-8b4f-fb011b4fefb4",
+    "CategoryId": "1524ea3d-779c-49c7-90e7-79f84273bc28",
     "CategoryName": "Accessories",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   },
   {
@@ -134,149 +134,9 @@
     "Name": "USB Hub",
     "Price": 45,
     "Description": "A Multi-Port USB Hub for connecting multiple devices.",
-    "CategoryId": "4a04a733-b8aa-43e2-8b4f-fb011b4fefb4",
+    "CategoryId": "1524ea3d-779c-49c7-90e7-79f84273bc28",
     "CategoryName": "Accessories",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "46828837-8cc7-4c43-8900-c5a31c7fd5f7",
-    "Name": "Phone",
-    "Price": 500,
-    "Description": "A Cellular Device that can be used to call loved ones or play games.",
-    "CategoryId": "0cd94e43-ac47-4ec4-ad08-647933d8f2ce",
-    "CategoryName": "Electronics",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "6ff0f8d3-326a-43e6-9c21-48fd87e1c998",
-    "Name": "Laptop",
-    "Price": 1000,
-    "Description": "A Portable Computer that can be used to work or play games.",
-    "CategoryId": "0cd94e43-ac47-4ec4-ad08-647933d8f2ce",
-    "CategoryName": "Electronics",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "612a259d-d81f-4cca-928d-891b56ab5283",
-    "Name": "Tablet",
-    "Price": 300,
-    "Description": "A Portable Device that can be used to browse the internet or play games.",
-    "CategoryId": "0cd94e43-ac47-4ec4-ad08-647933d8f2ce",
-    "CategoryName": "Electronics",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "e4a66b91-9a40-4276-b9e6-99ed495a764b",
-    "Name": "Smart Watch",
-    "Price": 250,
-    "Description": "A Wearable Device that can be used to track fitness or receive notifications.",
-    "CategoryId": "d88264f8-5ade-48e0-98cc-014643a752a1",
-    "CategoryName": "Accessories",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "e1ea2544-911f-451a-bb33-43f604fd8401",
-    "Name": "Headphones",
-    "Price": 150,
-    "Description": "A Device that can be used to listen to music or podcasts.",
-    "CategoryId": "6bd2d27a-3e17-4aed-916e-806f36e84975",
-    "CategoryName": "Audio",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "0c960f60-8b0b-4eea-bad4-6a16930d3a0d",
-    "Name": "Gaming Console",
-    "Price": 400,
-    "Description": "A Dedicated Gaming Device with hundreds of games available.",
-    "CategoryId": "5747da55-d4aa-4309-9910-ed12a10a8bcd",
-    "CategoryName": "Gaming",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "1005fbec-16f1-4555-bbe9-4259b62c98e0",
-    "Name": "Monitor",
-    "Price": 350,
-    "Description": "A High-Resolution Display perfect for work or gaming.",
-    "CategoryId": "0cd94e43-ac47-4ec4-ad08-647933d8f2ce",
-    "CategoryName": "Electronics",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "75498fb6-2807-47b4-a8e0-53bec5d1d597",
-    "Name": "Keyboard",
-    "Price": 120,
-    "Description": "A Mechanical Keyboard with RGB Lighting for typing or gaming.",
-    "CategoryId": "d88264f8-5ade-48e0-98cc-014643a752a1",
-    "CategoryName": "Accessories",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "758040f0-b88f-4cfa-a6e6-26c02d04def4",
-    "Name": "Mouse",
-    "Price": 80,
-    "Description": "A Precision Gaming Mouse with customizable buttons.",
-    "CategoryId": "d88264f8-5ade-48e0-98cc-014643a752a1",
-    "CategoryName": "Accessories",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "88b04485-7028-44a3-a015-49c36b1bf429",
-    "Name": "Webcam",
-    "Price": 100,
-    "Description": "A 4K Webcam ideal for streaming or video calls.",
-    "CategoryId": "d88264f8-5ade-48e0-98cc-014643a752a1",
-    "CategoryName": "Accessories",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "4d148b42-ceda-4bc5-9488-a8765cb97f61",
-    "Name": "Microphone",
-    "Price": 200,
-    "Description": "A Professional USB Microphone for recording or streaming.",
-    "CategoryId": "6bd2d27a-3e17-4aed-916e-806f36e84975",
-    "CategoryName": "Audio",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "fc9ccc1f-cb32-4366-a0cb-1ea5f913ecc6",
-    "Name": "Speaker",
-    "Price": 180,
-    "Description": "A Portable Bluetooth Speaker with excellent sound quality.",
-    "CategoryId": "6bd2d27a-3e17-4aed-916e-806f36e84975",
-    "CategoryName": "Audio",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "d1555ee0-c266-42dd-bdb3-09d905b003b7",
-    "Name": "Power Bank",
-    "Price": 60,
-    "Description": "A High-Capacity Power Bank to charge your devices on the go.",
-    "CategoryId": "d88264f8-5ade-48e0-98cc-014643a752a1",
-    "CategoryName": "Accessories",
-    "Stock": 3,
-    "ImageUrl": ""
-  },
-  {
-    "Id": "a092c21b-b0f7-4bdc-a940-574a6722268e",
-    "Name": "USB Hub",
-    "Price": 45,
-    "Description": "A Multi-Port USB Hub for connecting multiple devices.",
-    "CategoryId": "d88264f8-5ade-48e0-98cc-014643a752a1",
-    "CategoryName": "Accessories",
-    "Stock": 3,
+    "Stock": 20,
     "ImageUrl": ""
   }
 ]
