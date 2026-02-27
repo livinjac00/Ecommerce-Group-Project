@@ -1,6 +1,6 @@
 [
   {
-    "Id": "3cb4a6a1-db34-4432-9262-c88389f8258a",
+    "Id": "949afb6c-0669-4291-89b3-226657735595",
     "Name": "Phone",
     "Price": 500,
     "Description": "A Cellular Device that can be used to call loved ones or play games.",
@@ -10,7 +10,7 @@
     "ImageUrl": "../images/pexels-solliefoto-336948.jpg"
   },
   {
-    "Id": "5f5af744-00e2-4314-a858-340fbe24f1a5",
+    "Id": "55378757-3904-4e1d-887d-c51f6a2a9f6f",
     "Name": "Laptop",
     "Price": 1000,
     "Description": "A Portable Computer that can be used to work or play games.",
@@ -20,7 +20,7 @@
     "ImageUrl": ""
   },
   {
-    "Id": "a892c60c-b5e0-4dd7-87cd-cd5a5c216925",
+    "Id": "c7f98252-572d-44a4-83db-e7a25cba9204",
     "Name": "Tablet",
     "Price": 300,
     "Description": "A Portable Device that can be used to browse the internet or play games.",
@@ -30,7 +30,7 @@
     "ImageUrl": ""
   },
   {
-    "Id": "30324703-2b2c-488b-8ba9-853c792a08e5",
+    "Id": "a07fb7eb-c645-4526-98a5-0ac90bbc36ad",
     "Name": "Smart Watch",
     "Price": 250,
     "Description": "A Wearable Device that can be used to track fitness or receive notifications.",
@@ -40,7 +40,7 @@
     "ImageUrl": ""
   },
   {
-    "Id": "eab2664c-361e-48af-ab8c-73ea170d0008",
+    "Id": "455a37ec-2ed9-4be0-a432-08447b85f2bf",
     "Name": "Headphones",
     "Price": 150,
     "Description": "A Device that can be used to listen to music or podcasts.",
@@ -50,7 +50,7 @@
     "ImageUrl": ""
   },
   {
-    "Id": "ac8b1b20-41b5-4bca-a636-506e4cc1b977",
+    "Id": "e9e00492-6baf-47d9-b733-1bd91255ba12",
     "Name": "Gaming Console",
     "Price": 400,
     "Description": "A Dedicated Gaming Device with hundreds of games available.",
@@ -60,7 +60,7 @@
     "ImageUrl": ""
   },
   {
-    "Id": "a9995f50-b8a4-4cb7-8e49-4cb4edd7c174",
+    "Id": "9ad841c5-11c0-4afc-9fb8-c7148a979c03",
     "Name": "Monitor",
     "Price": 350,
     "Description": "A High-Resolution Display perfect for work or gaming.",
@@ -70,7 +70,7 @@
     "ImageUrl": ""
   },
   {
-    "Id": "47e1ce45-13fd-4373-a73d-2bc54855eef1",
+    "Id": "58d9829a-9316-420e-9ea6-6462338bb460",
     "Name": "Keyboard",
     "Price": 120,
     "Description": "A Mechanical Keyboard with RGB Lighting for typing or gaming.",
@@ -80,7 +80,7 @@
     "ImageUrl": ""
   },
   {
-    "Id": "f25c1532-9cde-4121-93ab-930642c49a41",
+    "Id": "32f41aa9-4539-4bb7-91f4-3f73c296cd8e",
     "Name": "Mouse",
     "Price": 80,
     "Description": "A Precision Gaming Mouse with customizable buttons.",
@@ -90,7 +90,7 @@
     "ImageUrl": ""
   },
   {
-    "Id": "582106b4-d74c-4448-8668-edeffda66308",
+    "Id": "3432b997-69af-4c0c-b7a9-46835c4d500c",
     "Name": "Webcam",
     "Price": 100,
     "Description": "A 4K Webcam ideal for streaming or video calls.",
@@ -100,7 +100,7 @@
     "ImageUrl": ""
   },
   {
-    "Id": "18d84b43-9e53-451c-a5ea-75e1f673eb51",
+    "Id": "43245fe0-e8cd-4242-8d14-311e1822ffdd",
     "Name": "Microphone",
     "Price": 200,
     "Description": "A Professional USB Microphone for recording or streaming.",
@@ -110,7 +110,7 @@
     "ImageUrl": ""
   },
   {
-    "Id": "4150be32-b55f-4e5e-a2d3-fbf0c97cd30a",
+    "Id": "f7c90105-e0dd-4536-9bd5-c6164cd687a0",
     "Name": "Speaker",
     "Price": 180,
     "Description": "A Portable Bluetooth Speaker with excellent sound quality.",
@@ -120,7 +120,7 @@
     "ImageUrl": ""
   },
   {
-    "Id": "0de1e378-9ab2-49f0-a705-f13a2cdb08e7",
+    "Id": "1d6975ee-164b-4b9d-9e1f-b16fa36a1ead",
     "Name": "Power Bank",
     "Price": 60,
     "Description": "A High-Capacity Power Bank to charge your devices on the go.",
@@ -130,7 +130,7 @@
     "ImageUrl": ""
   },
   {
-    "Id": "667badf3-484a-4d91-b8a8-cf08d846675a",
+    "Id": "5a6424fe-f042-485b-861a-d29a164eed3b",
     "Name": "USB Hub",
     "Price": 45,
     "Description": "A Multi-Port USB Hub for connecting multiple devices.",

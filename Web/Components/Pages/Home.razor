@@ -66,33 +66,33 @@
     protected override async Task OnInitializedAsync()
     {
         productCollection.Load();
-        @* var electronics = new Category("Electronics");
+        var electronics = new Category("Electronics");
         var audio = new Category("Audio");
         var gaming = new Category("Gaming");
         var accessories = new Category("Accessories");
 
-        List<Product> ExampleListOfProducts = new List<Product>()
+        @* List<Product> ExampleListOfProducts = new List<Product>()
         {
-            new( "Phone", 500m, "A Cellular Device that can be used to call loved ones or play games.", electronics.Id, electronics.Name),
-            new( "Laptop", 1000m, "A Portable Computer that can be used to work or play games.", electronics.Id, electronics.Name),
-            new( "Tablet", 300m, "A Portable Device that can be used to browse the internet or play games.", electronics.Id, electronics.Name),
-            new( "Smart Watch", 250m, "A Wearable Device that can be used to track fitness or receive notifications.", accessories.Id, accessories.Name),
-            new( "Headphones", 150m, "A Device that can be used to listen to music or podcasts.", audio.Id, audio.Name),
-            new( "Gaming Console", 400m, "A Dedicated Gaming Device with hundreds of games available.", gaming.Id, gaming.Name),
-            new( "Monitor", 350m, "A High-Resolution Display perfect for work or gaming.", electronics.Id, electronics.Name),
-            new( "Keyboard", 120m, "A Mechanical Keyboard with RGB Lighting for typing or gaming.", accessories.Id, accessories.Name),
-            new( "Mouse", 80m, "A Precision Gaming Mouse with customizable buttons.", accessories.Id, accessories.Name),
-            new( "Webcam", 100m, "A 4K Webcam ideal for streaming or video calls.", accessories.Id, accessories.Name),
-            new( "Microphone", 200m, "A Professional USB Microphone for recording or streaming.", audio.Id, audio.Name),
-            new( "Speaker", 180m, "A Portable Bluetooth Speaker with excellent sound quality.", audio.Id, audio.Name),
-            new( "Power Bank", 60m, "A High-Capacity Power Bank to charge your devices on the go.", accessories.Id, accessories.Name),
-            new( "USB Hub", 45m, "A Multi-Port USB Hub for connecting multiple devices.", accessories.Id, accessories.Name),
+            new( "Phone", 500m, "A Cellular Device that can be used to call loved ones or play games.", electronics.Id, electronics.Name, 3, ""),
+            new( "Laptop", 1000m, "A Portable Computer that can be used to work or play games.", electronics.Id, electronics.Name, 3, ""),
+            new( "Tablet", 300m, "A Portable Device that can be used to browse the internet or play games.", electronics.Id, electronics.Name, 3, ""),
+            new( "Smart Watch", 250m, "A Wearable Device that can be used to track fitness or receive notifications.", accessories.Id, accessories.Name, 3, ""),
+            new( "Headphones", 150m, "A Device that can be used to listen to music or podcasts.", audio.Id, audio.Name, 3, ""),
+            new( "Gaming Console", 400m, "A Dedicated Gaming Device with hundreds of games available.", gaming.Id, gaming.Name, 3, ""),
+            new( "Monitor", 350m, "A High-Resolution Display perfect for work or gaming.", electronics.Id, electronics.Name, 3, ""),
+            new( "Keyboard", 120m, "A Mechanical Keyboard with RGB Lighting for typing or gaming.", accessories.Id, accessories.Name, 3, ""),
+            new( "Mouse", 80m, "A Precision Gaming Mouse with customizable buttons.", accessories.Id, accessories.Name, 3, ""),
+            new( "Webcam", 100m, "A 4K Webcam ideal for streaming or video calls.", accessories.Id, accessories.Name, 3, ""),
+            new( "Microphone", 200m, "A Professional USB Microphone for recording or streaming.", audio.Id, audio.Name, 3, ""),
+            new( "Speaker", 180m, "A Portable Bluetooth Speaker with excellent sound quality.", audio.Id, audio.Name, 3, ""),
+            new( "Power Bank", 60m, "A High-Capacity Power Bank to charge your devices on the go.", accessories.Id, accessories.Name, 3, ""),
+            new( "USB Hub", 45m, "A Multi-Port USB Hub for connecting multiple devices.", accessories.Id, accessories.Name, 3, ""),
         };
         foreach (var product in ExampleListOfProducts)
         {
             productCollection.Add(product);
         }
-        productCollection.Save(); *@
+        productCollection.Save();  *@
         filteredProducts = productCollection.Products.ToList();
 
     }

@@ -2,6 +2,7 @@
 @using BackEnd
 @rendermode InteractiveServer
 @inject NavigationManager Nav
+@inject LocalStorageManager Storage
 
 @if (product == null)
 {
@@ -21,12 +22,34 @@ else
         <div class="flex-grow-1">
             <h1>@product.Name</h1>
             <h4>$@product.Price</h4>
-            <h6>3 remaining</h6>
+            <h6>@product.Stock remaining</h6>
             <p>@product.CategoryName</p>
             <p>@product.Description</p>
         </div>
         <div style="width: fit-content;">
-            <button class="btn btn-primary" @onclick="addToCart">Add To Cart</button>
+            @if (currentUser == null)
+            {
+                <p>Please log in to add items to your cart.</p>
+            }
+            else if (currentUser.GetShoppingCart().ContainsKey(product.Id))
+            {
+                <div>
+                    <div class="d-flex m-1">
+                        <button
+                        class="btn btn-primary bi @(currentUser.GetShoppingCart()[product.Id] == 1 ? "bi-trash" : "bi-dash")"
+                        @onclick="removeFromCart"></button>
+                        <input type="number" @bind="currentUser.GetShoppingCart()[product.Id]" @bind:event="oninput"
+                               class="form-control mx-2" style="width: 60px;" min="1" />
+                        <button class="btn btn-primary bi bi-plus" @onclick="addToCart"></button>
+                    </div>
+                    <button class="btn btn-primary w-100" @onclick="GoToShoppingCartPage">View Cart</button>
+                </div>
+
+            }
+            else
+            {
+                <button class="btn btn-primary" @onclick="addToCart">Add To Cart</button>
+            }
         </div>
     </section>
     <section id="rateProduct">
@@ -78,13 +101,14 @@ else
 
     Product product = null;
 
+    User currentUser;
+
     @* Todo: Remove this temp list and pull from product.Reviews *@
     List<(string UserName, int Rating, string Comment)> reviews = new List<(string UserName, int Rating, string Comment)>();
     protected override void OnInitialized()
     {
         productCollection.Load();
         @* productCollection.Add(testProduct); *@
-        @* Console.WriteLine(testProduct.Id); *@
 
         if (!string.IsNullOrWhiteSpace(productIdString))
         {
@@ -93,6 +117,22 @@ else
             reviews.Add(("Alice", 4, "Great product!"));
             reviews.Add(("Bob", 5, "Excellent product!"));
             reviews.Add(("Charlie", 5, "Best product ever!"));
+        }
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            string userID = await Storage.GetUserId();
+            try
+            {
+                currentUser = UserCollection.GetByID(userID);
+            }
+            catch
+            {
+                currentUser = null;
+            }
+            StateHasChanged();
         }
     }
 
@@ -127,6 +167,18 @@ else
 
     void addToCart()
     {
-        @* Add product to user's shopping cart *@
+        currentUser.AddToCart(product.Id);
+    }
+    void removeFromCart()
+    {
+        currentUser.RemoveFromCart(product.Id);
+    }
+    void setProductQuantity(int quantity)
+    {
+        currentUser.SetItemQuantity(product.Id, (uint)quantity);
+    }
+    void GoToShoppingCartPage()
+    {
+        Nav.NavigateTo("/ShoppingCartUI");
     }
 }

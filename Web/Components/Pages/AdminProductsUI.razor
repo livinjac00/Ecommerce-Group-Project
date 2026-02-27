@@ -52,7 +52,7 @@ else
                     <td>@product.CategoryName</td>
                     <td>
                         <button class="btn btn-warning btn-sm me-2" @onclick="() => EditProduct(product)">Edit</button>
-                        <button class="btn btn-danger btn-sm" @onclick="() => DeleteProduct(product.Id)">Delete</button>
+                        @* <button class="btn btn-danger btn-sm" @onclick="() => DeleteProduct(product.Id)">Delete</button> *@
                     </td>
                 </tr>
             }

@@ -6,6 +6,11 @@ public class ProductCollection
 {
     public List<Product> Products { get; set;} = new();
     private string fileName = "products.json";
+
+    public ProductCollection()
+    {
+        Load();
+    }
     
     public void Save()
     {

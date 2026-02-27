@@ -11,7 +11,54 @@ public class User
     public Permissions AccountPermissions { get; set; }
     
     public User() { }
+
+    private Dictionary<Guid, uint> cartItems = new Dictionary<Guid, uint>();
     
+    public Dictionary<Guid, uint> GetShoppingCart()
+    {
+        return cartItems;
+    }
+    public void SetItemQuantity(Guid productId, uint quantity)
+    {
+        if (cartItems.ContainsKey(productId))
+        {
+            cartItems[productId] = quantity;
+        }
+        else
+        {
+            cartItems[productId] = quantity;
+        }
+    }
+    public void AddToCart(Guid productId, uint quantity = 1)
+    {
+        if (cartItems.ContainsKey(productId))
+        {
+            cartItems[productId] += quantity;
+        }
+        else
+        {
+            cartItems[productId] = quantity;
+        }
+    }
+    public void RemoveFromCart(Guid productId, uint quantity = 1)
+    {
+        if (cartItems.ContainsKey(productId))
+        {
+            if (cartItems[productId] > quantity)
+            {
+                cartItems[productId] -= quantity;
+            }
+            else
+            {
+                cartItems.Remove(productId);
+            }
+        }
+    }
+    public void DeleteCartItem(Guid productId)
+    {
+        cartItems.Remove(productId);
+    }
+
     public void Register(string email, string username, string passwordHash, string address, Role accountRole, Permissions accountPermissions)
     {
         Id = Guid.NewGuid();
@@ -40,4 +87,5 @@ public class User
     {
         //
     }
+
 }
